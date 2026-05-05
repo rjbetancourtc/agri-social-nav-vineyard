@@ -1,0 +1,363 @@
+using UnityEngine;
+using UnityEngine.AI;
+
+/// <summary>
+/// Controlador completo de navegación social para robot agrícola en Unity.
+/// </summary>
+[RequireComponent(typeof(NavMeshAgent))]
+public class RobotSocialNavController : MonoBehaviour
+{
+    public enum SocialMode
+    {
+        Patrol,
+        AvoidOnly,
+        ApproachNearestHuman,
+        FollowNearestHuman,
+        Auto
+    }
+
+    [Header("Modo principal")]
+    public SocialMode mode = SocialMode.Auto;
+
+    [Header("Patrulla global")]
+    public Transform pointA_R;
+    public Transform pointB_R;
+    public float switchDistance = 0.35f;
+
+    [Header("Detección de humanos")]
+    public LayerMask humanMask;
+    public float detectionRadius = 12f;
+    public bool useClosestPoint = true;
+
+    [Header("Zonas sociales")]
+    public float intimateZone = 0.45f;
+    public float personalZone = 1.20f;
+    public float socialZone = 3.60f;
+
+    [Header("Velocidades por zona")]
+    public float nominalSpeed = 1.0f;
+    public float slowSpeed = 0.45f;
+    public float stopSpeed = 0.0f;
+
+    [Header("Aproximación / seguimiento social")]
+    public float dMin = 1.8f;
+
+    [Range(-180f, 180f)]
+    public float alphaDeg = -36f;
+
+    public bool updateReferenceContinuously = true;
+
+    [Header("Campo social anisotrópico")]
+    public float sigmaX = 1.2f;
+    public float sigmaY = 0.8f;
+    public float avoidanceGain = 3.0f;
+    public float avoidanceInfluenceDistance = 4.0f;
+
+    [Header("Waypoint local para NavMesh")]
+    public float localProbeDistance = 1.25f;
+    public float navMeshSampleRadius = 1.5f;
+
+    [Header("Auto social")]
+    public bool stopInsideIntimateZone = true;
+    public bool slowInsideSocialZone = true;
+
+    [Header("Debug")]
+    public bool drawDebug = true;
+    public Color colorGlobal = Color.green;
+    public Color colorAvoid = Color.red;
+    public Color colorFinal = Color.cyan;
+
+    private NavMeshAgent agent;
+    private Transform patrolTarget;
+    private readonly Collider[] humanHits = new Collider[64];
+
+    private Transform nearestHuman;
+    private HumanKinematics nearestHumanKin;
+    private float nearestHumanDistance = Mathf.Infinity;
+
+    private Vector3 lastGlobalTarget;
+    private Vector3 lastAvoidVector;
+    private Vector3 lastFinalDirection;
+
+    public Transform NearestHuman => nearestHuman;
+    public float NearestHumanDistance => nearestHumanDistance;
+
+    private void Start()
+    {
+        agent = GetComponent<NavMeshAgent>();
+
+        agent.speed = nominalSpeed;
+        patrolTarget = pointB_R;
+
+        if (!agent.isOnNavMesh)
+        {
+            Debug.LogWarning("RobotSocialNavController: el robot no arrancó exactamente sobre el NavMesh.");
+        }
+
+        Vector3 initialTarget = GetCurrentGlobalTarget();
+        SetNavmeshDestination(initialTarget);
+    }
+
+    private void Update()
+    {
+        UpdateNearestHuman();
+        UpdatePatrolSwitch();
+
+        Vector3 globalTarget = GetCurrentGlobalTarget();
+
+        Vector3 robotPos = transform.position;
+        Vector3 toTarget = globalTarget - robotPos;
+        toTarget.y = 0f;
+
+        Vector3 globalDir = toTarget.sqrMagnitude > 1e-8f ? toTarget.normalized : Vector3.zero;
+
+        Vector3 avoidDir = ComputeSocialAvoidanceVector();
+
+        Vector3 finalDir = ComputeFinalDirection(globalDir, avoidDir);
+
+        UpdateSocialSpeed();
+
+        if (finalDir.sqrMagnitude > 1e-8f)
+        {
+            Vector3 localWaypoint = robotPos + finalDir.normalized * localProbeDistance;
+            SetNavmeshDestination(localWaypoint);
+        }
+        else
+        {
+            SetNavmeshDestination(globalTarget);
+        }
+
+        lastGlobalTarget = globalTarget;
+        lastAvoidVector = avoidDir;
+        lastFinalDirection = finalDir;
+    }
+
+    private void UpdateNearestHuman()
+    {
+        nearestHuman = null;
+        nearestHumanKin = null;
+        nearestHumanDistance = Mathf.Infinity;
+
+        int count = Physics.OverlapSphereNonAlloc(
+            transform.position,
+            detectionRadius,
+            humanHits,
+            humanMask,
+            QueryTriggerInteraction.Ignore
+        );
+
+        for (int i = 0; i < count; i++)
+        {
+            Collider c = humanHits[i];
+            if (c == null) continue;
+
+            Transform root = c.transform.root;
+            if (root == transform) continue;
+
+            Vector3 refPoint = useClosestPoint ? c.ClosestPoint(transform.position) : root.position;
+            float d = Vector3.Distance(ProjectXZ(transform.position), ProjectXZ(refPoint));
+
+            if (d < nearestHumanDistance)
+            {
+                nearestHumanDistance = d;
+                nearestHuman = root;
+                nearestHumanKin = root.GetComponent<HumanKinematics>();
+            }
+        }
+    }
+
+    private void UpdatePatrolSwitch()
+    {
+        if (pointA_R == null || pointB_R == null) return;
+        if (patrolTarget == null) patrolTarget = pointB_R;
+
+        Vector3 robotPos = ProjectXZ(transform.position);
+        Vector3 patrolPos = ProjectXZ(patrolTarget.position);
+
+        if (Vector3.Distance(robotPos, patrolPos) <= switchDistance)
+        {
+            patrolTarget = (patrolTarget == pointA_R) ? pointB_R : pointA_R;
+        }
+    }
+
+    private Vector3 GetCurrentGlobalTarget()
+    {
+        if (mode == SocialMode.Patrol || mode == SocialMode.AvoidOnly || mode == SocialMode.Auto)
+        {
+            if (patrolTarget != null) return patrolTarget.position;
+            return transform.position;
+        }
+
+        if (nearestHuman == null)
+        {
+            if (patrolTarget != null) return patrolTarget.position;
+            return transform.position;
+        }
+
+        return ComputeSocialReferencePoint(nearestHuman, nearestHumanKin);
+    }
+
+    private Vector3 ComputeSocialReferencePoint(Transform human, HumanKinematics kin)
+    {
+        Vector3 hPos = human.position;
+        float thetaH = GetHumanHeadingRad(human, kin);
+        float alpha = alphaDeg * Mathf.Deg2Rad;
+
+        float xd = hPos.x - dMin * Mathf.Cos(alpha + thetaH);
+        float zd = hPos.z - dMin * Mathf.Sin(alpha + thetaH);
+
+        return new Vector3(xd, transform.position.y, zd);
+    }
+
+    private float GetHumanHeadingRad(Transform human, HumanKinematics kin)
+    {
+        if (kin != null) return kin.HeadingRad;
+
+        Vector3 fwd = human.forward;
+        fwd.y = 0f;
+        if (fwd.sqrMagnitude < 1e-8f) fwd = Vector3.forward;
+        fwd.Normalize();
+
+        return Mathf.Atan2(fwd.z, fwd.x);
+    }
+
+    private Vector3 ComputeSocialAvoidanceVector()
+    {
+        if (nearestHuman == null) return Vector3.zero;
+        if (nearestHumanDistance > avoidanceInfluenceDistance) return Vector3.zero;
+
+        Vector3 r = ProjectXZ(transform.position);
+        Vector3 h = ProjectXZ(nearestHuman.position);
+
+        float xr = r.x;
+        float yr = r.z;
+        float xh = h.x;
+        float yh = h.z;
+
+        float thetaH = GetHumanHeadingRad(nearestHuman, nearestHumanKin);
+
+        float d = Mathf.Sqrt((xr - xh) * (xr - xh) + (yr - yh) * (yr - yh));
+        if (d < 1e-5f) d = 1e-5f;
+
+        float beta = Mathf.Atan2((yr - yh), (xr - xh));
+        float delta = beta - thetaH;
+
+        float cosTerm = Mathf.Cos(delta);
+        float sinTerm = Mathf.Sin(delta);
+
+        float exponent =
+            -d * d * (
+                (cosTerm * cosTerm) / Mathf.Max(1e-5f, sigmaX * sigmaX) +
+                (sinTerm * sinTerm) / Mathf.Max(1e-5f, sigmaY * sigmaY)
+            );
+
+        float F = Mathf.Exp(exponent);
+
+        Vector3 away = (r - h).normalized;
+
+        float gain = avoidanceGain * F;
+
+        if (nearestHumanDistance <= personalZone) gain *= 2.0f;
+        if (nearestHumanDistance <= intimateZone) gain *= 4.0f;
+
+        return away * gain;
+    }
+
+    private Vector3 ComputeFinalDirection(Vector3 globalDir, Vector3 avoidDir)
+    {
+        Vector3 finalDir = Vector3.zero;
+
+        switch (mode)
+        {
+            case SocialMode.Patrol:
+                finalDir = globalDir;
+                break;
+
+            case SocialMode.AvoidOnly:
+            case SocialMode.ApproachNearestHuman:
+            case SocialMode.FollowNearestHuman:
+            case SocialMode.Auto:
+                finalDir = (globalDir + avoidDir).normalized;
+                break;
+        }
+
+        if (float.IsNaN(finalDir.x) || float.IsNaN(finalDir.y) || float.IsNaN(finalDir.z))
+            return Vector3.zero;
+
+        return finalDir;
+    }
+
+    private void UpdateSocialSpeed()
+    {
+        if (agent == null) return;
+
+        float speedToApply = nominalSpeed;
+
+        if (nearestHuman != null)
+        {
+            if (stopInsideIntimateZone && nearestHumanDistance <= intimateZone)
+            {
+                speedToApply = stopSpeed;
+            }
+            else if (nearestHumanDistance <= personalZone)
+            {
+                speedToApply = slowSpeed;
+            }
+            else if (slowInsideSocialZone && nearestHumanDistance <= socialZone)
+            {
+                speedToApply = Mathf.Min(nominalSpeed, slowSpeed * 1.35f);
+            }
+        }
+
+        agent.speed = speedToApply;
+        agent.isStopped = speedToApply <= 1e-3f;
+    }
+
+    private void SetNavmeshDestination(Vector3 desiredPoint)
+    {
+        if (agent == null) return;
+
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(desiredPoint, out hit, navMeshSampleRadius, NavMesh.AllAreas))
+        {
+            agent.SetDestination(hit.position);
+        }
+    }
+
+    private static Vector3 ProjectXZ(Vector3 v)
+    {
+        return new Vector3(v.x, 0f, v.z);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Vector3 p = transform.position;
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(p, detectionRadius);
+
+        Gizmos.color = new Color(1f, 0f, 0f, 0.45f);
+        Gizmos.DrawWireSphere(p, intimateZone);
+
+        Gizmos.color = new Color(1f, 0.5f, 0f, 0.45f);
+        Gizmos.DrawWireSphere(p, personalZone);
+
+        Gizmos.color = new Color(0f, 1f, 1f, 0.45f);
+        Gizmos.DrawWireSphere(p, socialZone);
+
+        Gizmos.color = colorGlobal;
+        Gizmos.DrawLine(p + Vector3.up * 0.4f, lastGlobalTarget + Vector3.up * 0.4f);
+
+        Gizmos.color = colorAvoid;
+        Gizmos.DrawLine(p + Vector3.up * 0.6f, p + Vector3.up * 0.6f + lastAvoidVector);
+
+        Gizmos.color = colorFinal;
+        Gizmos.DrawLine(p + Vector3.up * 0.8f, p + Vector3.up * 0.8f + lastFinalDirection * 2f);
+
+        if (nearestHuman != null)
+        {
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawLine(p, nearestHuman.position);
+        }
+    }
+}
