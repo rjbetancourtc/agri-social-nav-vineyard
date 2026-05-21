@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0778f3f2c4c0ae418280ca5406959b2, type: 3}
+  m_Name: B1_SocialDWA_ConfigDWAConfig
+  m_EditorClassIdentifier: Assembly-CSharp::SocialDWAConfig
+  vMin: 0
+  vMax: 1
+  omegaMax: 1.2
+  aVMax: 0.8
+  aOmegaMax: 1.5
+  velocitySamples: 10
+  omegaSamples: 21
+  predictionTime: 2.5
+  simulationStep: 0.1
+  localWaypointLookAhead: 3
+  dIntimate: 0.45
+  dPersonal: 1.2
+  dSocial: 3.6
+  sigmaX: 1.5
+  sigmaY: 0.9
+  robotRadius: 0.35
+  obstacleSafetyMargin: 0.15
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 0
+  rejectOffNavMesh: 1
+  navMeshSampleRadius: 0.25
+  wGoal: 1
+  wVelocity: 0.3
+  wSmooth: 0.5
+  wProxemic: 2
+  wAnisotropic: 2
+  wObstacle: 3
+  logCpuTime: 1
