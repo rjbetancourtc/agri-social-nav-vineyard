@@ -1,583 +1,354 @@
 <!-- ============================================================
-     PROJECT INTRODUCTION
-     Anisotropic Proxemic Fields for Agricultural Robot Navigation
+     REPOSITORY IDENTIFICATION — GitHub README compatible
+     Repository: agri-social-nav-vineyard
      ============================================================ -->
 
-<section id="project-introduction" class="project-intro">
-
-    <!-- HERO -->
-    <header class="intro-header">
-
-        <p class="project-tags">
-            Unity · NavMesh · MATLAB · UDP Telemetry · Social Navigation ·
-            Human–Robot Interaction · Agricultural Robotics
-        </p>
-
-        <h1>
-            Socially Aware Navigation for Agricultural Mobile Robots
-            in Narrow Vineyard Corridors
-        </h1>
-
-        <p class="project-subtitle">
-            A reproducible Unity–MATLAB experimental framework for the
-            simulation, implementation, telemetry acquisition, statistical
-            evaluation, and multicriteria comparison of socially aware
-            navigation strategies for agricultural mobile robots operating
-            in human-populated vineyard environments.
-        </p>
-
-    </header>
-
-
-    <!-- REPOSITORY OVERVIEW -->
-    <section class="intro-block">
-
-        <h2>Repository Overview</h2>
-
-        <p>
-            This repository contains the complete simulation,
-            experimentation, telemetry, data-processing, visualization,
-            statistical-analysis, and multicriteria-evaluation framework
-            developed for the study of socially aware navigation of
-            agricultural mobile robots operating in narrow vineyard
-            corridors shared with human workers.
-        </p>
-
-        <p>
-            The research investigates how autonomous agricultural robots
-            can navigate efficiently through geometrically constrained
-            environments while maintaining socially acceptable
-            human–robot separation distances, reducing unsafe close-contact
-            interactions, preventing operational deadlocks, limiting
-            unnecessary stops, and preserving mission-completion reliability.
-        </p>
-
-        <p>
-            The experimental platform integrates a vineyard environment
-            developed in <strong>Unity</strong>, global path generation
-            through <strong>NavMesh</strong>, multiple local
-            social-navigation strategies, real-time
-            <strong>UDP telemetry</strong>, and a complete
-            <strong>MATLAB</strong> pipeline for signal processing,
-            trajectory reconstruction, statistical inference,
-            effect-size estimation, visualization, and multicriteria
-            decision analysis.
-        </p>
-
-    </section>
-
-
-    <!-- RESEARCH FRAMEWORK -->
-    <section class="intro-block">
-
-        <h2>Research Framework</h2>
-
-        <p>
-            Nine navigation strategies are implemented and evaluated under
-            a common experimental architecture. The comparison includes
-            incremental in-house navigation strategies and representative
-            algorithms from the principal families of social and local
-            robot navigation.
-        </p>
-
-        <div class="method-groups">
-
-            <div class="method-group">
-                <h3>In-House Navigation Strategies</h3>
-
-                <ul>
-                    <li><strong>M0:</strong> NavMesh Only</li>
-                    <li><strong>M1:</strong> Threshold Stop</li>
-                    <li><strong>M2:</strong> Hysteresis Supervisor</li>
-                    <li><strong>M3:</strong> Isotropic Proxemic Navigation</li>
-                    <li>
-                        <strong>M4:</strong>
-                        Full Anisotropic Proxemic Navigation
-                    </li>
-                </ul>
-            </div>
-
-            <div class="method-group">
-                <h3>External Navigation Baselines</h3>
-
-                <ul>
-                    <li>
-                        <strong>B1:</strong>
-                        Social Dynamic Window Approach
-                    </li>
-
-                    <li>
-                        <strong>B2:</strong>
-                        ORCA / RVO Reciprocal Collision Avoidance
-                    </li>
-
-                    <li>
-                        <strong>B3:</strong>
-                        Social Force Model
-                    </li>
-
-                    <li>
-                        <strong>B4:</strong>
-                        Control-Barrier-Function Social DWA
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- PROPOSED METHOD -->
-    <section class="intro-block highlight-block">
-
-        <h2>Proposed M4 Navigation Strategy</h2>
-
-        <p>
-            The proposed M4 controller combines an
-            <strong>orientation-dependent anisotropic proxemic field</strong>,
-            multi-human influence aggregation, continuous local avoidance,
-            velocity modulation, and a non-zero minimum escape velocity
-            outside the intimate interaction region.
-        </p>
-
-        <p>
-            Unlike binary STOP/GO safety supervisors, the controller does
-            not require a nearby stationary worker to move before the robot
-            can continue navigating. Instead, the robot preserves a small
-            avoidance velocity that allows it to generate lateral escape
-            motion and recover progress while maintaining the global mission
-            direction provided by NavMesh.
-        </p>
-
-        <p>
-            The anisotropic formulation explicitly considers human
-            orientation. Consequently, frontal and lateral approaches
-            generate different social-influence distributions, providing
-            an interpretable mechanism for orientation-aware
-            human–robot interaction.
-        </p>
-
-    </section>
-
-
-    <!-- EXPERIMENTAL FRAMEWORK -->
-    <section class="intro-block">
-
-        <h2>Experimental Framework</h2>
-
-        <p>
-            All navigation strategies are evaluated using a common
-            <strong>A → B → A</strong> navigation mission in the same
-            simulated vineyard environment.
-        </p>
-
-        <p>
-            The complete experimental corpus contains:
-        </p>
-
-        <div class="experiment-stats">
-
-            <article class="stat-card">
-                <span class="stat-value">343</span>
-                <span class="stat-label">Valid Experimental Runs</span>
-            </article>
-
-            <article class="stat-card">
-                <span class="stat-value">9</span>
-                <span class="stat-label">Navigation Methods</span>
-            </article>
-
-            <article class="stat-card">
-                <span class="stat-value">4</span>
-                <span class="stat-label">HRI Scenarios</span>
-            </article>
-
-            <article class="stat-card">
-                <span class="stat-value">10 Hz</span>
-                <span class="stat-label">Telemetry Sampling Rate</span>
-            </article>
-
-        </div>
-
-    </section>
-
-
-    <!-- SCENARIOS -->
-    <section class="intro-block">
-
-        <h2>Human–Robot Interaction Scenarios</h2>
-
-        <div class="scenario-grid">
-
-            <article class="scenario-card">
-                <h3>E1 — Frontal Encounter</h3>
-
-                <p>
-                    Evaluates robot response during a direct frontal
-                    interaction with a human worker.
-                </p>
-            </article>
-
-
-            <article class="scenario-card">
-                <h3>E2 — Lateral Intrusion</h3>
-
-                <p>
-                    Evaluates the navigation response when a human agent
-                    enters or crosses the robot trajectory laterally.
-                </p>
-            </article>
-
-
-            <article class="scenario-card">
-                <h3>E3 — Social Following</h3>
-
-                <p>
-                    Evaluates socially appropriate robot behavior relative
-                    to a moving human agent.
-                </p>
-            </article>
-
-
-            <article class="scenario-card">
-                <h3>E4 — Multi-Agent Congestion</h3>
-
-                <p>
-                    Evaluates navigation reliability, path generation,
-                    deadlock resistance, and operational continuity in a
-                    narrow corridor occupied by multiple stationary workers.
-                </p>
-            </article>
-
-        </div>
-
-    </section>
-
-
-    <!-- SYSTEM ARCHITECTURE -->
-    <section class="intro-block">
-
-        <h2>System Architecture</h2>
-
-        <p>
-            The platform follows a hybrid global–local navigation
-            architecture. Unity NavMesh generates the global reference
-            direction, while the active local navigation strategy
-            continuously evaluates the spatial relationship between the
-            robot and nearby human agents.
-        </p>
-
-        <div class="architecture-flow">
-
-            <span>Vineyard Environment</span>
-            <span class="arrow">→</span>
-
-            <span>NavMesh Global Planning</span>
-            <span class="arrow">→</span>
-
-            <span>Human Detection</span>
-            <span class="arrow">→</span>
-
-            <span>Social Navigation Policy</span>
-            <span class="arrow">→</span>
-
-            <span>Robot Motion</span>
-            <span class="arrow">→</span>
-
-            <span>UDP Telemetry</span>
-            <span class="arrow">→</span>
-
-            <span>MATLAB Processing</span>
-            <span class="arrow">→</span>
-
-            <span>Statistical Analysis</span>
-
-        </div>
-
-    </section>
-
-
-    <!-- PROXEMICS -->
-    <section class="intro-block">
-
-        <h2>Proxemic Interaction Model</h2>
-
-        <p>
-            Human–robot interaction is represented using four
-            distance-dependent proxemic regions:
-        </p>
-
-        <div class="proxemic-zones">
-
-            <div class="zone">
-                <strong>Intimate</strong>
-                <span>d &lt; 0.45 m</span>
-            </div>
-
-            <div class="zone">
-                <strong>Personal</strong>
-                <span>0.45 m ≤ d &lt; 1.20 m</span>
-            </div>
-
-            <div class="zone">
-                <strong>Social</strong>
-                <span>1.20 m ≤ d &lt; 3.60 m</span>
-            </div>
-
-            <div class="zone">
-                <strong>Public</strong>
-                <span>d ≥ 3.60 m</span>
-            </div>
-
-        </div>
-
-        <p>
-            M4 extends conventional distance-only interaction models by
-            incorporating the orientation of each human agent and by
-            aggregating multiple human influences into a continuous
-            local avoidance command.
-        </p>
-
-    </section>
-
-
-    <!-- TELEMETRY -->
-    <section class="intro-block">
-
-        <h2>Telemetry and Data Processing</h2>
-
-        <p>
-            During each experimental run, the Unity simulation transmits
-            real-time telemetry to MATLAB through UDP communication.
-            The recorded signals include:
-        </p>
-
-        <ul class="metric-list">
-            <li>Robot–human minimum distance</li>
-            <li>Robot velocity</li>
-            <li>Numerical acceleration</li>
-            <li>Robot Cartesian position</li>
-            <li>Mission state</li>
-            <li>Navigation method identifier</li>
-            <li>Experimental scenario identifier</li>
-        </ul>
-
-        <p>
-            These signals are used to reconstruct robot trajectories and
-            calculate social, safety, kinematic, efficiency, and operational
-            performance indicators.
-        </p>
-
-    </section>
-
-
-    <!-- METRICS -->
-    <section class="intro-block">
-
-        <h2>Evaluation Metrics</h2>
-
-        <p>
-            The repository includes tools for computing and analyzing:
-        </p>
-
-        <p class="metrics-inline">
-            Minimum human–robot distance · Mean human–robot distance ·
-            Personal-zone occupancy · Intimate-zone occupancy ·
-            Mission time · Trajectory length · Mean velocity ·
-            Velocity standard deviation · Maximum velocity ·
-            Numerical acceleration · Accumulated stop time ·
-            Number of stops · Mission success rate
-        </p>
-
-    </section>
-
-
-    <!-- STATISTICS -->
-    <section class="intro-block">
-
-        <h2>Statistical and Multicriteria Analysis</h2>
-
-        <p>
-            The analysis pipeline combines parametric, non-parametric,
-            categorical, effect-size, and multicriteria methods.
-        </p>
-
-        <p class="metrics-inline">
-            Welch's t-test · Welch ANOVA · Hedges' g ·
-            Mann–Whitney U · Cliff's δ ·
-            Benjamini–Hochberg correction · Fisher's exact test ·
-            χ² analysis · Cramér's V · TOPSIS ·
-            Monte Carlo weight-sensitivity analysis
-        </p>
-
-    </section>
-
-
-    <!-- KEY FINDINGS -->
-    <section class="intro-block highlight-block">
-
-        <h2>Principal Engineering Findings</h2>
-
-        <p>
-            The experiments demonstrate that binary threshold-based
-            supervisors can become operationally blocked in the presence
-            of stationary workers, while continuous-action strategies
-            preserve substantially higher navigation continuity.
-        </p>
-
-        <p>
-            The evaluated navigation families occupy complementary
-            regions of the social–throughput performance space:
-        </p>
-
-        <ul>
-            <li>
-                <strong>ORCA/RVO</strong> emphasizes mission speed and
-                velocity smoothness, but its reciprocity assumption becomes
-                problematic when interacting with non-reactive workers.
-            </li>
-
-            <li>
-                <strong>CBF-based navigation</strong> emphasizes separation
-                distance through hard safety constraints, but this
-                conservatism may reduce liveness in constrained scenarios.
-            </li>
-
-            <li>
-                <strong>Social Force Model</strong> provides a continuous
-                intermediate response with balanced navigation behavior.
-            </li>
-
-            <li>
-                <strong>Social DWA</strong> emphasizes socially aware
-                local velocity selection and reduced proxemic occupancy,
-                with an associated throughput cost.
-            </li>
-
-            <li>
-                <strong>M4</strong> provides an interpretable balance between
-                orientation-aware social behavior, trajectory efficiency,
-                low stop frequency, and operational continuity.
-            </li>
-        </ul>
-
-    </section>
-
-
-    <!-- RESEARCH OBJECTIVE -->
-    <section class="intro-block">
-
-        <h2>Research Objective</h2>
-
-        <p>
-            The purpose of this repository is not to claim the existence
-            of a universally optimal social-navigation algorithm.
-            Instead, the objective is to provide a reproducible
-            experimental framework for studying the engineering trade-off
-            between:
-        </p>
-
-        <div class="research-objectives">
-
-            <span>Human Safety</span>
-            <span>Social Compliance</span>
-            <span>Trajectory Efficiency</span>
-            <span>Motion Smoothness</span>
-            <span>Throughput</span>
-            <span>Operational Reliability</span>
-
-        </div>
-
-        <p>
-            The framework enables direct and statistically grounded
-            comparison of navigation algorithms under identical
-            environmental geometry, mission definition, human–robot
-            interaction scenarios, telemetry acquisition, and evaluation
-            criteria.
-        </p>
-
-    </section>
-
-
-    <!-- REPOSITORY STRUCTURE -->
-    <section class="intro-block">
-
-        <h2>Repository Structure</h2>
-
-        <pre><code>unity/
-├── Vineyard simulation environment
-├── Robot navigation controllers
-├── Human agent controllers
-├── NavMesh integration
-├── Social navigation methods
-└── UDP telemetry
-
-matlab/
-├── UDP data acquisition
-├── Signal processing
-├── Trajectory reconstruction
-├── Metric extraction
-├── Statistical inference
-├── Effect-size analysis
-├── Visualization
-└── TOPSIS and Monte Carlo sensitivity
-
-results/
-├── Experimental datasets
-├── Processed metrics
-├── Statistical tables
-├── Figures
-└── Multicriteria results
-
-docs/
-├── Technical documentation
-├── Architecture diagrams
-├── Experimental protocol
-└── Supplementary material
-
-referencias/
-├── Scientific references
-└── Complementary research documentation</code></pre>
-
-    </section>
-
-
-    <!-- ASSOCIATED RESEARCH -->
-    <section class="intro-block">
-
-        <h2>Associated Research</h2>
-
-        <p>
-            <strong>
-                Anisotropic Proxemic Fields vs. Social Navigation Baselines
-                for Agricultural Robot Navigation in Vineyard Corridors:
-                A Statistical Comparison with Effect Sizes
-            </strong>
-        </p>
-
-        <p>
-            This repository accompanies the simulation, experimental,
-            telemetry, statistical, and multicriteria framework developed
-            for the comparative study of anisotropic proxemic navigation
-            and representative social-navigation baselines in constrained
-            agricultural environments.
-        </p>
-
-    </section>
-
-
-    <!-- KEYWORDS -->
-    <footer class="intro-footer">
-
-        <p>
-            Agricultural Robotics · Social Navigation · Proxemics ·
-            Autonomous Mobile Robots · Human–Robot Interaction ·
-            Unity · NavMesh · MATLAB · UDP Telemetry ·
-            ORCA · Social Force Model · DWA ·
-            Control Barrier Functions
-        </p>
-
-    </footer>
-
-</section>
+<div align="center">
+
+  <p>
+    <strong>OPEN RESEARCH REPOSITORY</strong><br>
+    Agricultural Robotics · Human–Robot Interaction · Social Navigation
+  </p>
+
+  <h1>🌿 Agri-Social Navigation in Vineyard Corridors</h1>
+
+  <h3>
+    Anisotropic Proxemic Fields for Socially Aware Agricultural Robot Navigation
+  </h3>
+
+  <p>
+    A reproducible <strong>Unity–MATLAB</strong> framework for simulating,
+    implementing, instrumenting, and statistically evaluating socially aware
+    navigation strategies for agricultural mobile robots operating in narrow
+    vineyard corridors shared with human workers.
+  </p>
+
+
+  <p>
+    <strong>Authors:</strong><br>
+    Reinaldo Betancourt · Ingrid Nicole Vásconez · Viviana Moya ·
+    William Chamorro · Sandra Cano · Marco Antonio Molina ·
+    Juan Pablo Vásconez
+  </p>
+
+  <p>
+    <img alt="Repository"
+           src="https://img.shields.io/badge/GitHub-agri--social--nav--vineyard-181717?logo=github">
+    <img alt="Unity"
+         src="https://img.shields.io/badge/Unity-Digital_Twin-000000?logo=unity">
+    <img alt="MATLAB"
+         src="https://img.shields.io/badge/MATLAB-Data_Analysis-E16737">
+    <img alt="Methods"
+         src="https://img.shields.io/badge/Navigation_Methods-9-2F855A">
+    <img alt="Runs"
+         src="https://img.shields.io/badge/Valid_Runs-343-2563EB">
+    <img alt="Scenarios"
+         src="https://img.shields.io/badge/HRI_Scenarios-4-7C3AED">
+    <img alt="Telemetry"
+         src="https://img.shields.io/badge/UDP_Telemetry-10_Hz-0F766E">
+  </p>
+
+  <p>Purpose · Experimental identity · Methods · Architecture · Repository structure · Manuscript</p>
+
+</div>
+
+<hr>
+
+<h2 id="repository-purpose">Repository Purpose</h2>
+
+<p>
+  This repository contains the simulation environment, navigation controllers,
+  telemetry tools, experimental data, analysis scripts, figures, and scientific
+  documentation used to investigate socially aware navigation of agricultural
+  mobile robots in human-populated vineyard environments.
+</p>
+
+<p>
+  The central engineering problem is to preserve an effective compromise among
+  <strong>human–robot separation</strong>, <strong>collision avoidance</strong>,
+  <strong>deadlock resistance</strong>, <strong>trajectory efficiency</strong>,
+  <strong>kinematic smoothness</strong>, and
+  <strong>mission-completion reliability</strong>.
+</p>
+
+<h2 id="experimental-identity">Experimental Identity</h2>
+
+<table>
+  <tr>
+    <th align="left">Identifier</th>
+    <th align="left">Description</th>
+  </tr>
+  <tr>
+    <td><strong>Repository</strong></td>
+    <td><code>agri-social-nav-vineyard</code></td>
+  </tr>
+  <tr>
+    <td><strong>Research domain</strong></td>
+    <td>Agricultural robotics, social navigation, HRI, and digital twins</td>
+  </tr>
+  <tr>
+    <td><strong>Simulation platform</strong></td>
+    <td>Unity with NavMesh global path planning</td>
+  </tr>
+  <tr>
+    <td><strong>Analysis platform</strong></td>
+    <td>MATLAB for telemetry processing, statistics, visualization, and TOPSIS</td>
+  </tr>
+  <tr>
+    <td><strong>Mission</strong></td>
+    <td>Common <code>A → B → A</code> navigation task</td>
+  </tr>
+  <tr>
+    <td><strong>Experimental corpus</strong></td>
+    <td>343 valid runs</td>
+  </tr>
+  <tr>
+    <td><strong>Navigation methods</strong></td>
+    <td>9 strategies: M0–M4 and B1–B4</td>
+  </tr>
+  <tr>
+    <td><strong>HRI scenarios</strong></td>
+    <td>4 vineyard interaction scenarios</td>
+  </tr>
+  <tr>
+    <td><strong>Telemetry rate</strong></td>
+    <td>10 Hz through UDP communication</td>
+  </tr>
+  <tr>
+    <td><strong>Primary contribution</strong></td>
+    <td>
+      Orientation-dependent anisotropic proxemic navigation with continuous
+      avoidance and non-zero escape velocity
+    </td>
+  </tr>
+</table>
+
+<h2 id="navigation-methods">Navigation Methods</h2>
+
+<table>
+  <tr>
+    <th align="left">Group</th>
+    <th align="left">ID</th>
+    <th align="left">Navigation strategy</th>
+  </tr>
+  <tr>
+    <td rowspan="5"><strong>In-house methods</strong></td>
+    <td><strong>M0</strong></td>
+    <td>NavMesh only</td>
+  </tr>
+  <tr>
+    <td><strong>M1</strong></td>
+    <td>Distance-threshold stop supervisor</td>
+  </tr>
+  <tr>
+    <td><strong>M2</strong></td>
+    <td>Hysteresis-based supervisor</td>
+  </tr>
+  <tr>
+    <td><strong>M3</strong></td>
+    <td>Continuous proxemic-field navigation</td>
+  </tr>
+  <tr>
+    <td><strong>M4</strong></td>
+    <td>Full anisotropic proxemic navigation with velocity modulation</td>
+  </tr>
+  <tr>
+    <td rowspan="4"><strong>External baselines</strong></td>
+    <td><strong>B1</strong></td>
+    <td>Social Dynamic Window Approach</td>
+  </tr>
+  <tr>
+    <td><strong>B2</strong></td>
+    <td>ORCA / RVO reciprocal collision avoidance</td>
+  </tr>
+  <tr>
+    <td><strong>B3</strong></td>
+    <td>Social Force Model</td>
+  </tr>
+  <tr>
+    <td><strong>B4</strong></td>
+    <td>Control-Barrier-Function social planner</td>
+  </tr>
+</table>
+
+<h2 id="system-architecture">System Architecture</h2>
+
+<div align="center">
+  <p>
+    <code>
+      Vineyard Digital Twin
+      → NavMesh Global Planner
+      → Human Detection
+      → Social Navigation Policy
+      → Robot Motion
+      → UDP Telemetry
+      → MATLAB Processing
+      → Statistical and Multicriteria Analysis
+    </code>
+  </p>
+</div>
+
+<h3>Proxemic model</h3>
+
+<table>
+  <tr>
+    <th>Zone</th>
+    <th>Robot–human distance</th>
+    <th>Operational interpretation</th>
+  </tr>
+  <tr>
+    <td><strong>Intimate</strong></td>
+    <td><code>d &lt; 0.45 m</code></td>
+    <td>Critical close-contact region</td>
+  </tr>
+  <tr>
+    <td><strong>Personal</strong></td>
+    <td><code>0.45 m ≤ d &lt; 1.20 m</code></td>
+    <td>Active avoidance and velocity modulation</td>
+  </tr>
+  <tr>
+    <td><strong>Social</strong></td>
+    <td><code>1.20 m ≤ d &lt; 3.60 m</code></td>
+    <td>Monitoring and anticipatory response</td>
+  </tr>
+  <tr>
+    <td><strong>Public</strong></td>
+    <td><code>d ≥ 3.60 m</code></td>
+    <td>Nominal navigation</td>
+  </tr>
+</table>
+
+<h2>Human–Robot Interaction Scenarios</h2>
+
+<table>
+  <tr>
+    <th align="left">Scenario</th>
+    <th align="left">Description</th>
+  </tr>
+  <tr>
+    <td><strong>E1 — Frontal encounter</strong></td>
+    <td>Direct robot–worker interaction inside a narrow corridor</td>
+  </tr>
+  <tr>
+    <td><strong>E2 — Lateral intrusion</strong></td>
+    <td>A human enters or crosses the robot trajectory laterally</td>
+  </tr>
+  <tr>
+    <td><strong>E3 — Social following</strong></td>
+    <td>The robot navigates relative to a moving human agent</td>
+  </tr>
+  <tr>
+    <td><strong>E4 — Multi-agent congestion</strong></td>
+    <td>Several stationary workers constrain the available corridor space</td>
+  </tr>
+</table>
+
+<h2 id="repository-structure">Repository Structure</h2>
+
+<table>
+  <tr>
+    <th align="left">Path</th>
+    <th align="left">Contents</th>
+  </tr>
+  <tr>
+    <td><code>docs/</code></td>
+    <td>Technical documentation, methodology, and supporting material</td>
+  </tr>
+  <tr>
+    <td><code>unity/scripts/</code></td>
+    <td>Unity C# controllers, navigation logic, and UDP instrumentation</td>
+  </tr>
+  <tr>
+    <td><code>matlab/scripts/</code></td>
+    <td>Telemetry processing, statistics, visualization, and ranking scripts</td>
+  </tr>
+  <tr>
+    <td><code>results/</code></td>
+    <td>Experimental outputs, processed data, tables, and figures</td>
+  </tr>
+  <tr>
+    <td><code>referencias/</code></td>
+    <td>Scientific references and supporting publications</td>
+  </tr>
+  <tr>
+    <td><code>Vasconez.pdf</code></td>
+    <td>Research manuscript associated with the repository</td>
+  </tr>
+</table>
+
+<h2>Evaluation Pipeline</h2>
+
+<p>
+  The analysis includes descriptive statistics, parametric and non-parametric
+  inference, effect-size estimation, multiple-comparison correction,
+  categorical success analysis, trajectory reconstruction, and multicriteria
+  decision analysis.
+</p>
+
+<p>
+  <strong>Representative methods:</strong>
+  Welch's t-test · Hedges' g · Mann–Whitney U · Cliff's δ ·
+  Benjamini–Hochberg correction · Fisher's exact test · χ² ·
+  Cramér's V · TOPSIS · Monte Carlo weight-sensitivity analysis
+</p>
+
+<details>
+  <summary><strong>Core engineering contribution</strong></summary>
+
+  <p>
+    The M4 strategy combines an orientation-dependent anisotropic proxemic
+    field, multi-human influence aggregation, continuous local avoidance,
+    velocity modulation, and a non-zero minimum escape velocity.
+  </p>
+
+  <p>
+    This formulation is designed to preserve robot mobility in constrained
+    scenarios where binary STOP/GO supervisors can become operationally
+    blocked by stationary workers.
+  </p>
+</details>
+
+<h2>Authors</h2>
+
+<table>
+  <tr>
+    <th align="left">Author</th>
+    <th align="left">Affiliation</th>
+  </tr>
+  <tr>
+    <td><strong>Reinaldo Betancourt</strong></td>
+    <td>Faculty of Engineering, Department of Circuits and Measurements, Universidad de Los Andes, Mérida, Venezuela</td>
+  </tr>
+  <tr>
+    <td><strong>Ingrid Nicole Vásconez</strong></td>
+    <td>Centro de Biotecnología Vegetal, Facultad de Ciencias de la Vida, Universidad Andrés Bello, Santiago, Chile</td>
+  </tr>
+  <tr>
+    <td><strong>Viviana Moya</strong></td>
+    <td>Departamento de Automatización y Control Industrial, Escuela Politécnica Nacional, Quito, Ecuador</td>
+  </tr>
+  <tr>
+    <td><strong>William Chamorro</strong></td>
+    <td>Departamento de Automatización y Control Industrial, Escuela Politécnica Nacional, Quito, Ecuador</td>
+  </tr>
+  <tr>
+    <td><strong>Sandra Cano</strong></td>
+    <td>School of Informatics Engineering, Pontificia Universidad Católica de Valparaíso, Valparaíso, Chile</td>
+  </tr>
+  <tr>
+    <td><strong>Marco Antonio Molina</strong></td>
+    <td>Faculty of Engineering, Department of Circuits and Measurements, Universidad de Los Andes, Mérida, Venezuela</td>
+  </tr>
+  <tr>
+    <td><strong>Juan Pablo Vásconez</strong></td>
+    <td>Faculty of Engineering, Universidad Andrés Bello, Santiago, Chile; ANID – Millennium Nucleus in Data Science for Plant Resilience</td>
+  </tr>
+</table>
+
+<p>
+  <strong>Corresponding author:</strong> Juan Pablo Vásconez
+</p>
+
+<hr>
+
+</div>
