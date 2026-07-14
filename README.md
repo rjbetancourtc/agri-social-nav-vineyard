@@ -321,7 +321,7 @@
   </tr>
   <tr>
     <td><strong>Ingrid Nicole Vásconez</strong></td>
-    <td>Centro de Biotecnología Vegetal, Facultad de Ciencias de la Vida, Universidad Andrés Bello, Santiago, Chile</td>
+    <td>Centro de Biotecnología Vegetal, Facultad de Ciencias de la Vida, Universidad Andres Bello, Santiago, Chile</td>
   </tr>
   <tr>
     <td><strong>Viviana Moya</strong></td>
@@ -341,7 +341,7 @@
   </tr>
   <tr>
     <td><strong>Juan Pablo Vásconez</strong></td>
-    <td>Faculty of Engineering, Universidad Andrés Bello, Santiago, Chile; ANID – Millennium Nucleus in Data Science for Plant Resilience</td>
+    <td>Faculty of Engineering, Universidad Andres Bello, Santiago, Chile; ANID – Millennium Nucleus in Data Science for Plant Resilience</td>
   </tr>
 </table>
 
