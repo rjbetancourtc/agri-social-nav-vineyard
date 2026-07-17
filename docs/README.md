@@ -1,210 +1,69 @@
-# Supporting Documents and References
+<div align="center">
 
-This directory contains the seven numbered technical documents that support the
-statistical, multicriteria, and bibliographic analysis of the original
-Unity–MATLAB agricultural robot navigation study.
+# Technical Calculation Support
 
-The official document series consists **only of Documents 01 through 07**.
+<p>
+  Bilingual documentation for the statistical, inferential, multicriteria,
+  and sensitivity analyses of the agricultural social-navigation experiments.
+</p>
 
-No additional paper or manuscript is included in this directory.
+<p>
+  <img alt="Documents" src="https://img.shields.io/badge/documents-01--07-17365D">
+  <img alt="Languages" src="https://img.shields.io/badge/languages-English%20%7C%20Espa%C3%B1ol-2F5597">
+  <img alt="Format" src="https://img.shields.io/badge/format-PDF-B31B1B">
+</p>
 
----
-
-## Directory Scope
-
-```text
-references/
-├── README.md
-├── 01_Estadistica_Descriptiva.pdf
-├── 02_Kruskal_Wallis.pdf
-├── 03_MannWhitney_Holm_Cliff.pdf
-├── 04_Fisher_ChiCuadrado.pdf
-├── 05_TOPSIS_Multicriterio.pdf
-├── 06_MonteCarlo_Sensibilidad.pdf
-└── 07_Estado_del_Arte_y_Referencias.pdf
-```
+</div>
 
 ---
 
-## Official Numbered Documents
+<h2>Directory map</h2>
 
-| No. | File | Title and purpose |
-|---:|---|---|
-| 01 | `01_Estadistica_Descriptiva.pdf` | **Exhaustive Descriptive Statistics.** Documents the descriptive analysis of the experimental runs, including measures of central tendency, dispersion, percentiles, proxemic-zone times, mission time, trajectory length, velocity, acceleration, stops, and trajectory efficiency. |
-| 02 | `02_Kruskal_Wallis.pdf` | **Kruskal–Wallis Omnibus Test.** Presents the theoretical basis, rank construction, test statistic, critical-value comparison, and consolidated results for the scalar navigation metrics. |
-| 03 | `03_MannWhitney_Holm_Cliff.pdf` | **Pairwise Mann–Whitney U Comparisons.** Includes raw and adjusted p-values, Holm–Bonferroni correction, Cliff’s delta effect size, and focused comparisons involving M4. |
-| 04 | `04_Fisher_ChiCuadrado.pdf` | **Success-Rate Analysis.** Documents Fisher’s exact test, the global chi-square test of independence, and Cramér’s V for method success and failure counts. |
-| 05 | `05_TOPSIS_Multicriterio.pdf` | **TOPSIS Multicriteria Analysis.** Derives the complete TOPSIS procedure, criterion weighting, ideal solutions, closeness coefficients, and rankings with and without failure penalties. |
-| 06 | `06_MonteCarlo_Sensibilidad.pdf` | **Monte Carlo Weight-Sensitivity Analysis.** Evaluates the robustness of the TOPSIS ranking under random perturbations of the multicriteria weights. |
-| 07 | `07_Estado_del_Arte_y_Referencias.pdf` | **State of the Art and Complete References.** Reviews proxemics, classical and reactive planning, social navigation, agricultural robotics, functional safety, digital twins, Sim2Real, non-parametric statistics, and multicriteria decision analysis. |
+<table>
+  <thead>
+    <tr><th>No.</th><th>Directory</th><th>Scope</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>01</td><td><a href="./01_descriptive_statistics/">Descriptive statistics</a></td><td>Experimental matrix, summary statistics, and scenario-resolved safety.</td></tr>
+    <tr><td>02</td><td><a href="./02_omnibus_tests/">Omnibus tests</a></td><td>Nine-group Welch ANOVA and restricted Kruskal–Wallis tests.</td></tr>
+    <tr><td>03</td><td><a href="./03_pairwise_comparisons/">Pairwise comparisons</a></td><td>Welch comparisons, Hedges’ g, rank effects, and multiplicity control.</td></tr>
+    <tr><td>04</td><td><a href="./04_success_rate_tests/">Success-rate tests</a></td><td>Fisher exact tests, global chi-square, and Cramér’s V.</td></tr>
+    <tr><td>05</td><td><a href="./05_topsis_multicriteria/">TOPSIS multicriteria</a></td><td>Decision matrix, weighting schemes, closeness coefficients, and ranks.</td></tr>
+    <tr><td>06</td><td><a href="./06_monte_carlo_sensitivity/">Monte Carlo sensitivity</a></td><td>Weight perturbation and ranking-stability analysis.</td></tr>
+    <tr><td>07</td><td><a href="./07_state_of_the_art_and_references/">State of the art and references</a></td><td>Technical foundations and bibliography.</td></tr>
+    <tr><td>—</td><td><a href="./supporting_data/">Supporting data</a></td><td>Calculation workbook and supporting tabular resources.</td></tr>
+  </tbody>
+</table>
 
----
+<h2>Analysis sequence</h2>
 
-## Document Series
+<div align="center">
+  <code>Descriptive statistics → Omnibus tests → Pairwise effects → Success tests → TOPSIS → Sensitivity</code>
+</div>
 
-The numbered collection follows this analytical sequence:
+<h2>Shared experimental scope</h2>
 
-```text
-01  Descriptive characterization
-        ↓
-02  Omnibus comparison among methods
-        ↓
-03  Pairwise post-hoc comparisons and effect sizes
-        ↓
-04  Analysis of categorical mission success
-        ↓
-05  Multicriteria ranking
-        ↓
-06  Ranking robustness and sensitivity
-        ↓
-07  Theoretical framework, state of the art, and references
-```
+<ul>
+  <li><strong>343</strong> valid runs.</li>
+  <li><strong>9</strong> navigation methods: M0–M4 and B1–B4.</li>
+  <li><strong>4</strong> experimental scenarios: E1–E4.</li>
+  <li>Continuous metrics summarized conditionally on mission success.</li>
+  <li>Success treated separately as a binary outcome.</li>
+</ul>
 
-Together, Documents 01–07 provide the calculation traceability and theoretical
-support for the original experimental analysis.
+<h2>Naming convention</h2>
 
----
+<pre><code>NN_descriptive_name_language.pdf
+</code></pre>
 
-## Original Analysis Context
-
-The numbered Documents 01–07 correspond to the original analysis phase based on:
-
-```text
-184 experimental runs
-5 navigation methods
-4 experimental scenarios
-15 scalar metrics
-```
-
-The five original methods are:
-
-| Code | Method |
-|---|---|
-| `M0` | NavMesh Only |
-| `M1` | Threshold Stop |
-| `M2` | Hysteresis Supervisor |
-| `M3` | Continuous proxemic navigation |
-| `M4` | Full anisotropic proxemic navigation |
-
-The four experimental scenarios are:
-
-| Code | Scenario |
-|---|---|
-| `E1` | Frontal encounter |
-| `E2` | Lateral intrusion |
-| `E3` | Social following |
-| `E4` | Multi-human congestion |
-
-Later repository branches may include additional external baselines. Those
-additions do not change the numbering or purpose of the seven supporting
-documents in this directory.
-
----
-
-## Recommended Reading Order
-
-For complete technical traceability, read the documents in numerical order:
-
-1. Start with `01_Estadistica_Descriptiva.pdf`.
-2. Continue with the omnibus comparison in `02_Kruskal_Wallis.pdf`.
-3. Review pairwise differences and effect sizes in
-   `03_MannWhitney_Holm_Cliff.pdf`.
-4. Examine success and failure proportions in
-   `04_Fisher_ChiCuadrado.pdf`.
-5. Review the engineering ranking in `05_TOPSIS_Multicriterio.pdf`.
-6. Verify ranking robustness in `06_MonteCarlo_Sensibilidad.pdf`.
-7. Consult the theoretical framework and bibliography in
-   `07_Estado_del_Arte_y_Referencias.pdf`.
-
----
-
-## Relationship Between the Documents
-
-### Documents 01–04: Statistical evidence
-
-These documents establish the quantitative basis of the study:
-
-```text
-continuous metrics
-    → descriptive statistics
-    → omnibus testing
-    → pairwise post-hoc testing
-    → effect sizes
-
-categorical outcomes
-    → success/failure tables
-    → Fisher exact tests
-    → chi-square test
-    → Cramér’s V
-```
-
-### Documents 05–06: Engineering decision analysis
-
-These documents transform the statistical indicators into a multicriteria
-engineering assessment:
-
-```text
-performance matrix
-    → criterion normalization
-    → criterion weighting
-    → TOPSIS ranking
-    → Monte Carlo sensitivity analysis
-```
-
-### Document 07: Scientific foundation
-
-Document 07 provides the theoretical and bibliographic support for:
-
-- human proxemics;
-- social-navigation models;
-- NavMesh and classical planning;
-- DWA, TEB, ORCA, and reactive methods;
-- anisotropic Gaussian fields;
-- agricultural robot safety;
-- digital twins and Sim2Real;
-- non-parametric inference;
-- TOPSIS and sensitivity analysis.
-
----
-
-## Naming Convention
-
-The numbered files should preserve the following format:
-
-```text
-NN_Descriptive_Title.pdf
-```
-
-where:
-
-- `NN` is a two-digit number from `01` to `07`;
-- the number defines the reading order;
-- underscores separate words;
-- no additional numbered files should be added unless the document series is
-  formally revised.
-
-Recommended names:
-
-```text
-01_Estadistica_Descriptiva.pdf
-02_Kruskal_Wallis.pdf
-03_MannWhitney_Holm_Cliff.pdf
-04_Fisher_ChiCuadrado.pdf
-05_TOPSIS_Multicriterio.pdf
-06_MonteCarlo_Sensibilidad.pdf
-07_Estado_del_Arte_y_Referencias.pdf
-```
-
-
-
-
-## Authors
-
-- Reinaldo Betancourt
-- Ingrid Nicole Vásconez
-- Viviana Moya
-- William Chamorro
-- Sandra Cano
-- Marco Antonio Molina
-- Juan Pablo Vásconez
+<table>
+  <thead><tr><th>Component</th><th>Rule</th><th>Example</th></tr></thead>
+  <tbody>
+    <tr><td>Sequence</td><td>Two digits</td><td><code>01</code></td></tr>
+    <tr><td>Words</td><td>Lowercase snake_case</td><td><code>descriptive_statistics</code></td></tr>
+    <tr><td>Language</td><td><code>en</code> or <code>es</code></td><td><code>_en.pdf</code></td></tr>
+    <tr><td>Directory guide</td><td>Uppercase standard name</td><td><code>README.md</code></td></tr>
+  </tbody>
+</table>
+</p>
 
