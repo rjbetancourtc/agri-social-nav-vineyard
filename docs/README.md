@@ -31,7 +31,6 @@
     <tr><td>05</td><td><a href="./05_topsis_multicriteria/">TOPSIS multicriteria</a></td><td>Decision matrix, weighting schemes, closeness coefficients, and ranks.</td></tr>
     <tr><td>06</td><td><a href="./06_monte_carlo_sensitivity/">Monte Carlo sensitivity</a></td><td>Weight perturbation and ranking-stability analysis.</td></tr>
     <tr><td>07</td><td><a href="./07_state_of_the_art_and_references/">State of the art and references</a></td><td>Technical foundations and bibliography.</td></tr>
-    <tr><td>—</td><td><a href="./supporting_data/">Supporting data</a></td><td>Calculation workbook and supporting tabular resources.</td></tr>
   </tbody>
 </table>
 
