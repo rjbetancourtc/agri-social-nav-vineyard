@@ -1,73 +1,72 @@
 <div align="center">
 
-# Technical Calculation Support
+# 01 · Descriptive Statistics
+
+<p>Experimental design, global summaries, and scenario-resolved safety metrics.</p>
 
 <p>
-  Bilingual documentation for the statistical, inferential, multicriteria,
-  and sensitivity analyses of the agricultural social-navigation experiments.
-</p>
-
-<p>
-  <img alt="Documents" src="https://img.shields.io/badge/documents-01--07-17365D">
-  <img alt="Languages" src="https://img.shields.io/badge/languages-English%20%7C%20Espa%C3%B1ol-2F5597">
-  <img alt="Format" src="https://img.shields.io/badge/format-PDF-B31B1B">
+  <img alt="Analysis" src="https://img.shields.io/badge/analysis-descriptive-17365D">
+  <img alt="Runs" src="https://img.shields.io/badge/valid%20runs-343-2F5597">
+  <img alt="Methods" src="https://img.shields.io/badge/methods-9-4472C4">
 </p>
 
 </div>
 
 ---
 
-<h2>Directory map</h2>
+<h2>Files</h2>
 
 <table>
-  <thead>
-    <tr><th>No.</th><th>Directory</th><th>Scope</th></tr>
-  </thead>
+  <thead><tr><th>Language</th><th>Document</th></tr></thead>
   <tbody>
-    <tr><td>01</td><td><a href="./01_descriptive_statistics/">Descriptive statistics</a></td><td>Experimental matrix, summary statistics, and scenario-resolved safety.</td></tr>
-    <tr><td>02</td><td><a href="./02_omnibus_tests/">Omnibus tests</a></td><td>Nine-group Welch ANOVA and restricted Kruskal–Wallis tests.</td></tr>
-    <tr><td>03</td><td><a href="./03_pairwise_comparisons/">Pairwise comparisons</a></td><td>Welch comparisons, Hedges’ g, rank effects, and multiplicity control.</td></tr>
-    <tr><td>04</td><td><a href="./04_success_rate_tests/">Success-rate tests</a></td><td>Fisher exact tests, global chi-square, and Cramér’s V.</td></tr>
-    <tr><td>05</td><td><a href="./05_topsis_multicriteria/">TOPSIS multicriteria</a></td><td>Decision matrix, weighting schemes, closeness coefficients, and ranks.</td></tr>
-    <tr><td>06</td><td><a href="./06_monte_carlo_sensitivity/">Monte Carlo sensitivity</a></td><td>Weight perturbation and ranking-stability analysis.</td></tr>
-    <tr><td>07</td><td><a href="./07_state_of_the_art_and_references/">State of the art and references</a></td><td>Technical foundations and bibliography.</td></tr>
-    <tr><td>—</td><td><a href="./supporting_data/">Supporting data</a></td><td>Calculation workbook and supporting tabular resources.</td></tr>
+    <tr><td>English</td><td><a href="./01_descriptive_statistics_en.pdf"><code>01_descriptive_statistics_en.pdf</code></a></td></tr>
+    <tr><td>Español</td><td><a href="./01_estadistica_descriptiva_es.pdf"><code>01_estadistica_descriptiva_es.pdf</code></a></td></tr>
   </tbody>
 </table>
 
-<h2>Analysis sequence</h2>
+<h2>Purpose</h2>
 
-<div align="center">
-  <code>Descriptive statistics → Omnibus tests → Pairwise effects → Success tests → TOPSIS → Sensitivity</code>
-</div>
+<p>
+  Provide a reproducible description of the Unity–MATLAB experimental corpus
+  before inferential testing. The document separates continuous metrics from
+  the binary mission-success outcome and preserves method-specific sample sizes.
+</p>
 
-<h2>Shared experimental scope</h2>
+<h2>Experimental scope</h2>
 
 <ul>
-  <li><strong>343</strong> valid runs.</li>
-  <li><strong>9</strong> navigation methods: M0–M4 and B1–B4.</li>
-  <li><strong>4</strong> experimental scenarios: E1–E4.</li>
-  <li>Continuous metrics summarized conditionally on mission success.</li>
-  <li>Success treated separately as a binary outcome.</li>
+  <li>343 valid runs across nine navigation methods.</li>
+  <li>Four scenarios, E1 through E4.</li>
+  <li>Continuous metrics summarized over successful runs.</li>
+  <li>Success rate computed from all valid runs.</li>
+  <li>One excluded B1 record retained in the denominator audit.</li>
 </ul>
 
-<h2>Naming convention</h2>
-
-<pre><code>NN_descriptive_name_language.pdf
-</code></pre>
+<h2>Included calculations</h2>
 
 <table>
-  <thead><tr><th>Component</th><th>Rule</th><th>Example</th></tr></thead>
+  <thead><tr><th>Category</th><th>Metrics and outputs</th></tr></thead>
   <tbody>
-    <tr><td>Sequence</td><td>Two digits</td><td><code>01</code></td></tr>
-    <tr><td>Words</td><td>Lowercase snake_case</td><td><code>descriptive_statistics</code></td></tr>
-    <tr><td>Language</td><td><code>en</code> or <code>es</code></td><td><code>_en.pdf</code></td></tr>
-    <tr><td>Directory guide</td><td>Uppercase standard name</td><td><code>README.md</code></td></tr>
+    <tr><td>Safety</td><td>Minimum and mean distance, zone-occupancy time, scenario-resolved minimum distance.</td></tr>
+    <tr><td>Mission</td><td>Mission duration, path length, path efficiency, stopped time, and stop count.</td></tr>
+    <tr><td>Kinematics</td><td>Mean speed, maximum speed, speed variability, and acceleration indicators.</td></tr>
+    <tr><td>Reliability</td><td>Successful and planned runs by method and scenario.</td></tr>
+    <tr><td>Summary</td><td>Mean, sample standard deviation, and worked descriptive calculation.</td></tr>
   </tbody>
 </table>
+
+<details>
+  <summary><strong>Interpretation boundary</strong></summary>
+  <p>
+    Descriptive differences do not establish statistical significance. Omnibus
+    testing begins in Document 02, while pairwise effect sizes are handled in Document 03.
+  </p>
+</details>
 
 <h2>Navigation</h2>
 
-<p align="center">
-  <a href="./01_descriptive_statistics/"><strong>Start with Document 01 →</strong></a>
+<p>
+  <a href="../README.md">← Documentation index</a>
+  &nbsp;·&nbsp;
+  <a href="../02_omnibus_tests/">Document 02 →</a>
 </p>
