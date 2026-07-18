@@ -468,45 +468,6 @@ port configured in Unity.
 
 ---
 
-## Folder Contents
-
-| File | Description |
-|---|---|
-| `unity_telemetry_receive7.m` | MATLAB receiver for telemetry transmitted from Unity. |
-| `RobotExperimentDashboard.m` | Initial experimental dashboard. |
-| `RobotExperimentDashboard_V3.m` | Version 3 of the dashboard. |
-| `RobotExperimentDashboard_V4.m` | Version 4 of the dashboard. |
-| `RobotExperimentDashboard_V5.m` | Version 5 of the dashboard. |
-| `RobotExperimentDashboard_V5_1.m` | Intermediate V5 update. |
-| `RobotExperimentDashboard_V5_2.m` | Updated V5 dashboard. |
-| `RobotExperimentDashboard_V6.m` | Version 6 of the dashboard. |
-| `RobotExperimentDashboard_V7.m` | Version 7 with re-saving protection and inverted-flow support. |
-| `RobotExperimentDashboard_V7_1.m` | Version 7.1 with stricter mission-completion logic. |
-| `RobotExperimentDashboard_V7_2.m` | Version 7.2 with corrected zone-time integration, fallback completion, and timeout warning. |
-| `RobotExperimentDashboard_V7_3.m` | Version 7.3 with the B1 Social DWA baseline. |
-| `RobotExperimentDashboard_V7_4.m` | Earlier V7.4 development version. |
-| `RobotExperimentDashboard_V7_4_Baselines_B1_B4.m` | **Current recommended dashboard with M0–M4 and B1–B4 support.** |
-| `RobotExperimentDashboard_V7_5.m` | Additional development branch retained for comparison, when present. |
-| `GuiaExperimentos200.m` | Guide or automation script for the original 200-run experiment matrix. |
-| `GuiaExperimentos200_1.m` | Updated version of the original experiment guide. |
-| `rebuild_master_log_v2.m` | Rebuilds the consolidated experimental master log. |
-| `rebuild_master_log_clean.m` | Clean master-log reconstruction script. |
-| `rebuild_master_log_clean_1.m` | Updated clean reconstruction script. |
-| `analisis_estadistico_Q1.m` | Statistical analysis of the experimental dataset. |
-| `GridLayout.m` | GUI layout helper or interface-support file. |
-| `ManagerFactoryProducer.m` | MATLAB GUI or application-management helper. |
-| `getExtendedErrorCallback.m` | Extended error-callback utility. |
-| `onCleanup.m` | Cleanup utility used by MATLAB processes. |
-| `PeerProperties.m` | GUI or application-support file. |
-| `toolboxdir.m` | Utility related to MATLAB toolbox paths. |
-| `mustBeNonempty.m` | Input-validation utility. |
-
-Earlier dashboard versions are retained for traceability and comparison. New
-experimental acquisition should use the recommended V7.4 B1–B4 dashboard unless
-a specific legacy protocol must be reproduced.
-
----
-
 ## Data Integrity Recommendations
 
 - Keep the original telemetry files unchanged.
