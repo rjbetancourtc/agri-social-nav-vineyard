@@ -6,7 +6,7 @@
 <div align="center">
 
   <p>
-    <strong>OPEN RESEARCH REPOSITORY</strong><br>
+    <strong>RESEARCH PROJECT</strong><br>
     Agricultural Robotics · Human–Robot Interaction · Social Navigation
   </p>
 
@@ -17,10 +17,10 @@
   </h3>
 
   <p>
-    A reproducible <strong>Unity–MATLAB</strong> framework for simulating,
-    implementing, instrumenting, and statistically evaluating socially aware
-    navigation strategies for agricultural mobile robots operating in narrow
-    vineyard corridors shared with human workers.
+    A <strong>Unity–MATLAB</strong> research framework for simulating,
+    instrumenting, and evaluating socially aware navigation strategies
+    for agricultural mobile robots operating in vineyard corridors
+    shared with human workers.
   </p>
 
   <p>
@@ -51,7 +51,7 @@
 
   <p>
     Purpose · Experimental identity · Methods · Architecture ·
-    Repository structure · Evaluation · Manuscript
+    Repository structure · Evaluation · Data
   </p>
 
 </div>
@@ -61,18 +61,17 @@
 <h2 id="repository-purpose">Repository Purpose</h2>
 
 <p>
-  This repository contains the simulation environment, navigation controllers,
-  telemetry tools, experimental data, analysis scripts, figures, and scientific
-  documentation used to investigate socially aware navigation of agricultural
-  mobile robots in human-populated vineyard environments.
+  This repository brings together Unity navigation scripts, telemetry tools,
+  experimental data, research documentation, and MATLAB code associated with
+  the evaluation of socially aware agricultural robot navigation in simulated
+  vineyard environments.
 </p>
 
 <p>
-  The engineering objective is to study the balance among
-  <strong>human–robot separation</strong>, <strong>collision avoidance</strong>,
-  <strong>trajectory efficiency</strong>, <strong>kinematic behavior</strong>,
-  and <strong>mission completion</strong> under the simulated conditions.
-  The reported experiments do not constitute validation on a physical robot.
+  The engineering objective is to examine human–robot separation,
+  collision avoidance, trajectory efficiency, kinematic behavior,
+  and mission completion under the evaluated simulation conditions.
+  Physical-robot validation remains a separate research step.
 </p>
 
 <h2 id="experimental-identity">Experimental Identity</h2>
@@ -96,7 +95,7 @@
   </tr>
   <tr>
     <td><strong>Analysis platform</strong></td>
-    <td>MATLAB for telemetry processing, statistics, visualization, and multicriteria analysis</td>
+    <td>MATLAB for telemetry processing, visualization, and evaluation</td>
   </tr>
   <tr>
     <td><strong>Mission</strong></td>
@@ -107,7 +106,7 @@
     <td>9 methods × 4 scenarios × 10 repetitions = 360 runs</td>
   </tr>
   <tr>
-    <td><strong>Run accounting reported in the revised manuscript</strong></td>
+    <td><strong>Run accounting reported in the manuscript</strong></td>
     <td>360 planned, 360 executed, 360 valid, 0 excluded, 360 successful, 0 failed</td>
   </tr>
   <tr>
@@ -116,14 +115,11 @@
   </tr>
   <tr>
     <td><strong>Telemetry timing</strong></td>
-    <td>Nominal 0.10 s interval; approximately 4.387 Hz average recorded frequency</td>
+    <td>Nominal transmission interval of 0.10 s; approximately 4.387 Hz average recorded frequency</td>
   </tr>
   <tr>
-    <td><strong>Primary contribution</strong></td>
-    <td>
-      Longitudinal–lateral anisotropic proxemic navigation with front–rear
-      symmetry and continuous velocity regulation in the evaluated M4 controller
-    </td>
+    <td><strong>M4 controller</strong></td>
+    <td>Longitudinal–lateral anisotropic proxemic navigation with front–rear symmetry and continuous velocity regulation</td>
   </tr>
 </table>
 
@@ -176,9 +172,9 @@
 </table>
 
 <p>
-  The cited literature motivates these algorithmic families. The numerical
-  settings reported in the manuscript describe the evaluated implementations;
-  the references should not be interpreted as prescribing every experimental
+  The cited literature motivates the algorithmic families. The numerical
+  settings reported in the manuscript describe the implementations evaluated
+  in this study; the cited publications do not prescribe every experimental
   parameter value.
 </p>
 
@@ -187,19 +183,19 @@
 <div align="center">
   <p>
     <code>
-      Vineyard Digital Twin
-      → NavMesh Global Planner
-      → Human-State Information
-      → Local Navigation Policy
-      → Robot Motion
-      → UDP Telemetry
-      → MATLAB Processing
-      → Statistical and Multicriteria Analysis
+      Vineyard simulation
+      → NavMesh planning
+      → Human-state information
+      → Local navigation
+      → Robot motion
+      → UDP telemetry
+      → MATLAB processing
+      → Statistical evaluation
     </code>
   </p>
 </div>
 
-<h3>Proxemic model</h3>
+<h3>Proxemic zones</h3>
 
 <table>
   <tr>
@@ -229,7 +225,7 @@
   </tr>
 </table>
 
-<h2>Human–Robot Interaction Scenarios</h2>
+<h2 id="hri-scenarios">Human–Robot Interaction Scenarios</h2>
 
 <table>
   <tr>
@@ -263,51 +259,42 @@
   </tr>
   <tr>
     <td><code>docs/</code></td>
-    <td>Technical documentation, methodology, and supporting material</td>
+    <td>Technical documentation and supporting material</td>
   </tr>
   <tr>
     <td><code>unity/scripts/</code></td>
-    <td>Unity C# controllers, navigation logic, and UDP instrumentation</td>
+    <td>Unity C# navigation and UDP instrumentation scripts</td>
   </tr>
   <tr>
     <td><code>matlab/scripts/</code></td>
-    <td>Telemetry processing, statistics, visualization, and analysis scripts</td>
+    <td>Automated dashboard for telemetry acquisition and run-level metrics</td>
   </tr>
   <tr>
     <td><code>results/Data2/Results/</code></td>
-    <td>Final unified 360-run navigation dataset: run-level CSV, MAT, and metrics files</td>
+    <td>360-run navigation dataset: telemetry CSV, metrics CSV, and MAT files</td>
   </tr>
   <tr>
     <td><code>results/Data2/ControllerBenchmark/</code></td>
-    <td>Separate 54-run computational benchmark and aggregate summary</td>
-  </tr>
-  <tr>
-    <td><code>results/</code></td>
-    <td>Also contains earlier results retained for historical traceability</td>
+    <td>Separate 54-run computational benchmark and summary</td>
   </tr>
   <tr>
     <td><code>referencias/</code></td>
     <td>Scientific references and supporting publications</td>
   </tr>
-  <tr>
-    <td><code>Vasconez.pdf</code></td>
-    <td>Research manuscript associated with the repository</td>
-  </tr>
 </table>
 
 <p>
-  <strong>Dataset separation:</strong>
-  The earlier root-level <code>results/master_log*.csv</code> files must not
-  be merged with <code>results/Data2/Results/</code> when reproducing the
-  revised manuscript. Historical counts, including 343 valid runs, do not
-  describe the final 360-run campaign.
+  <strong>Data for the current study:</strong>
+  Use <code>results/Data2/Results/</code> for the 360-run navigation study.
+  The separate 54-run controller profiling data are under
+  <code>results/Data2/ControllerBenchmark/</code>.
 </p>
 
 <h2 id="evaluation-pipeline">Evaluation Pipeline</h2>
 
 <p>
-  The revised manuscript uses a common run-level telemetry and metrics
-  pipeline for all nine methods. Its principal analysis models
+  The manuscript reports a common run-level telemetry and metrics pipeline
+  for all nine methods. The principal statistical analysis evaluates
   <strong>Method</strong>, <strong>Scenario</strong>, and their interaction
   while retaining the paired experimental structure.
 </p>
@@ -335,7 +322,7 @@
   </tr>
   <tr>
     <td><strong>Safety-distance criterion</strong></td>
-    <td>Saturating utility rather than an unbounded reward for increasing separation</td>
+    <td>Saturating utility for robot–human separation</td>
   </tr>
   <tr>
     <td><strong>Pareto analysis</strong></td>
@@ -348,48 +335,45 @@
 </table>
 
 <p>
-  The numerical maximum-acceleration diagnostic and the constant success
-  outcome are not criteria in the primary TOPSIS analysis. A two-dimensional
-  Pareto projection is used for visualization, not as proof of dominance in
-  the full criterion space.
+  Numerical maximum acceleration and the constant success outcome are
+  not criteria in the primary TOPSIS analysis. The two-dimensional Pareto
+  projection serves as a visualization of the full-criterion analysis.
 </p>
 
 <details>
-  <summary><strong>Core engineering contribution and scope</strong></summary>
+  <summary><strong>M4 implementation and experimental scope</strong></summary>
 
   <p>
-    The evaluated M4 strategy uses a longitudinal–lateral anisotropic
+    The evaluated M4 strategy applies a longitudinal–lateral anisotropic
     proxemic field with front–rear symmetry, referenced to the nearest
     detected human, together with continuous velocity regulation.
-    The current description does not claim a guaranteed nonzero minimum
-    escape velocity or multi-human influence aggregation.
   </p>
 
   <p>
-    The results characterize the evaluated Unity simulation scenarios.
-    Physical deployment, worst-case real-time behavior, and safety with
-    real workers require separate validation.
+    The results characterize the evaluated Unity scenarios. Physical
+    deployment, worst-case real-time behavior, and safety with real
+    workers require separate validation.
   </p>
 </details>
 
-<h2 id="data-availability">Data Availability and Versioning</h2>
+<h2 id="data-availability">Data Availability</h2>
 
 <p>
-  The final navigation dataset is available under
+  The navigation dataset is available under
   <a href="./results/Data2/Results/"><code>results/Data2/Results/</code></a>.
   The separate computational benchmark is available under
   <a href="./results/Data2/ControllerBenchmark/"><code>results/Data2/ControllerBenchmark/</code></a>.
-  The 54 benchmark runs are not part of the 360-run navigation sample.
+  The 54 benchmark runs are separate from the 360-run navigation sample.
 </p>
 
 <p>
-  The revised manuscript also refers to Supplementary Table S1 for the
-  complete scenario-specific statistical contrasts. That table must be
-  checked and supplied as supplementary material; a reference to S1 in
-  the manuscript does not mean that its file is already included here.
+  The manuscript also refers to Supplementary Table S1 for the complete
+  scenario-specific statistical contrasts. Supply S1 with the manuscript
+  supplementary material; its citation in the manuscript does not establish
+  that its file is present in this repository.
 </p>
 
-<h2>Authors</h2>
+<h2 id="authors">Authors</h2>
 
 <table>
   <tr>
