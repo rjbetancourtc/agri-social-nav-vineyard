@@ -23,7 +23,6 @@
     vineyard corridors shared with human workers.
   </p>
 
-
   <p>
     <strong>Authors:</strong><br>
     Reinaldo Betancourt · Ingrid Nicole Vásconez · Viviana Moya ·
@@ -33,22 +32,27 @@
 
   <p>
     <img alt="Repository"
-           src="https://img.shields.io/badge/GitHub-agri--social--nav--vineyard-181717?logo=github">
+         src="https://img.shields.io/badge/GitHub-agri--social--nav--vineyard-181717?logo=github">
     <img alt="Unity"
          src="https://img.shields.io/badge/Unity-Digital_Twin-000000?logo=unity">
     <img alt="MATLAB"
          src="https://img.shields.io/badge/MATLAB-Data_Analysis-E16737">
     <img alt="Methods"
          src="https://img.shields.io/badge/Navigation_Methods-9-2F855A">
-    <img alt="Runs"
-         src="https://img.shields.io/badge/Valid_Runs-343-2563EB">
+    <img alt="Navigation runs"
+         src="https://img.shields.io/badge/Valid_Navigation_Runs-360-2563EB">
     <img alt="Scenarios"
          src="https://img.shields.io/badge/HRI_Scenarios-4-7C3AED">
-    <img alt="Telemetry"
-         src="https://img.shields.io/badge/UDP_Telemetry-10_Hz-0F766E">
+    <img alt="Benchmark"
+         src="https://img.shields.io/badge/Computational_Benchmark-54_Runs-8B5CF6">
+    <img alt="Recorded telemetry"
+         src="https://img.shields.io/badge/Recorded_Telemetry-4.387_Hz-0F766E">
   </p>
 
-  <p>Purpose · Experimental identity · Methods · Architecture · Repository structure · Manuscript</p>
+  <p>
+    Purpose · Experimental identity · Methods · Architecture ·
+    Repository structure · Evaluation · Manuscript
+  </p>
 
 </div>
 
@@ -64,11 +68,11 @@
 </p>
 
 <p>
-  The central engineering problem is to preserve an effective compromise among
+  The engineering objective is to study the balance among
   <strong>human–robot separation</strong>, <strong>collision avoidance</strong>,
-  <strong>deadlock resistance</strong>, <strong>trajectory efficiency</strong>,
-  <strong>kinematic smoothness</strong>, and
-  <strong>mission-completion reliability</strong>.
+  <strong>trajectory efficiency</strong>, <strong>kinematic behavior</strong>,
+  and <strong>mission completion</strong> under the simulated conditions.
+  The reported experiments do not constitute validation on a physical robot.
 </p>
 
 <h2 id="experimental-identity">Experimental Identity</h2>
@@ -92,33 +96,33 @@
   </tr>
   <tr>
     <td><strong>Analysis platform</strong></td>
-    <td>MATLAB for telemetry processing, statistics, visualization, and TOPSIS</td>
+    <td>MATLAB for telemetry processing, statistics, visualization, and multicriteria analysis</td>
   </tr>
   <tr>
     <td><strong>Mission</strong></td>
     <td>Common <code>A → B → A</code> navigation task</td>
   </tr>
   <tr>
-    <td><strong>Experimental corpus</strong></td>
-    <td>343 valid runs</td>
+    <td><strong>Navigation campaign</strong></td>
+    <td>9 methods × 4 scenarios × 10 repetitions = 360 runs</td>
   </tr>
   <tr>
-    <td><strong>Navigation methods</strong></td>
-    <td>9 strategies: M0–M4 and B1–B4</td>
+    <td><strong>Run accounting reported in the revised manuscript</strong></td>
+    <td>360 planned, 360 executed, 360 valid, 0 excluded, 360 successful, 0 failed</td>
   </tr>
   <tr>
-    <td><strong>HRI scenarios</strong></td>
-    <td>4 vineyard interaction scenarios</td>
+    <td><strong>Separate computational benchmark</strong></td>
+    <td>9 methods × 2 scenarios × 3 repetitions = 54 runs</td>
   </tr>
   <tr>
-    <td><strong>Telemetry rate</strong></td>
-    <td>10 Hz through UDP communication</td>
+    <td><strong>Telemetry timing</strong></td>
+    <td>Nominal 0.10 s interval; approximately 4.387 Hz average recorded frequency</td>
   </tr>
   <tr>
     <td><strong>Primary contribution</strong></td>
     <td>
-      Orientation-dependent anisotropic proxemic navigation with continuous
-      avoidance and non-zero escape velocity
+      Longitudinal–lateral anisotropic proxemic navigation with front–rear
+      symmetry and continuous velocity regulation in the evaluated M4 controller
     </td>
   </tr>
 </table>
@@ -146,14 +150,14 @@
   </tr>
   <tr>
     <td><strong>M3</strong></td>
-    <td>Continuous proxemic-field navigation</td>
+    <td>Continuous isotropic proxemic-field navigation</td>
   </tr>
   <tr>
     <td><strong>M4</strong></td>
-    <td>Full anisotropic proxemic navigation with velocity modulation</td>
+    <td>Longitudinal–lateral anisotropic proxemic navigation with velocity modulation</td>
   </tr>
   <tr>
-    <td rowspan="4"><strong>External baselines</strong></td>
+    <td rowspan="4"><strong>Comparison baselines</strong></td>
     <td><strong>B1</strong></td>
     <td>Social Dynamic Window Approach</td>
   </tr>
@@ -167,9 +171,16 @@
   </tr>
   <tr>
     <td><strong>B4</strong></td>
-    <td>Control-Barrier-Function social planner</td>
+    <td>CBF-SocialDWA with a control-barrier-based safety layer</td>
   </tr>
 </table>
+
+<p>
+  The cited literature motivates these algorithmic families. The numerical
+  settings reported in the manuscript describe the evaluated implementations;
+  the references should not be interpreted as prescribing every experimental
+  parameter value.
+</p>
 
 <h2 id="system-architecture">System Architecture</h2>
 
@@ -178,8 +189,8 @@
     <code>
       Vineyard Digital Twin
       → NavMesh Global Planner
-      → Human Detection
-      → Social Navigation Policy
+      → Human-State Information
+      → Local Navigation Policy
       → Robot Motion
       → UDP Telemetry
       → MATLAB Processing
@@ -204,7 +215,7 @@
   <tr>
     <td><strong>Personal</strong></td>
     <td><code>0.45 m ≤ d &lt; 1.20 m</code></td>
-    <td>Active avoidance and velocity modulation</td>
+    <td>Active avoidance and velocity regulation</td>
   </tr>
   <tr>
     <td><strong>Social</strong></td>
@@ -239,7 +250,7 @@
   </tr>
   <tr>
     <td><strong>E4 — Multi-agent congestion</strong></td>
-    <td>Several stationary workers constrain the available corridor space</td>
+    <td>Several workers constrain the available corridor space</td>
   </tr>
 </table>
 
@@ -260,11 +271,19 @@
   </tr>
   <tr>
     <td><code>matlab/scripts/</code></td>
-    <td>Telemetry processing, statistics, visualization, and ranking scripts</td>
+    <td>Telemetry processing, statistics, visualization, and analysis scripts</td>
+  </tr>
+  <tr>
+    <td><code>results/Data2/Results/</code></td>
+    <td>Final unified 360-run navigation dataset: run-level CSV, MAT, and metrics files</td>
+  </tr>
+  <tr>
+    <td><code>results/Data2/ControllerBenchmark/</code></td>
+    <td>Separate 54-run computational benchmark and aggregate summary</td>
   </tr>
   <tr>
     <td><code>results/</code></td>
-    <td>Experimental outputs, processed data, tables, and figures</td>
+    <td>Also contains earlier results retained for historical traceability</td>
   </tr>
   <tr>
     <td><code>referencias/</code></td>
@@ -276,37 +295,99 @@
   </tr>
 </table>
 
-<h2>Evaluation Pipeline</h2>
-
 <p>
-  The analysis includes descriptive statistics, parametric and non-parametric
-  inference, effect-size estimation, multiple-comparison correction,
-  categorical success analysis, trajectory reconstruction, and multicriteria
-  decision analysis.
+  <strong>Dataset separation:</strong>
+  The earlier root-level <code>results/master_log*.csv</code> files must not
+  be merged with <code>results/Data2/Results/</code> when reproducing the
+  revised manuscript. Historical counts, including 343 valid runs, do not
+  describe the final 360-run campaign.
 </p>
 
+<h2 id="evaluation-pipeline">Evaluation Pipeline</h2>
+
 <p>
-  <strong>Representative methods:</strong>
-  Welch's t-test · Hedges' g · Mann–Whitney U · Cliff's δ ·
-  Benjamini–Hochberg correction · Fisher's exact test · χ² ·
-  Cramér's V · TOPSIS · Monte Carlo weight-sensitivity analysis
+  The revised manuscript uses a common run-level telemetry and metrics
+  pipeline for all nine methods. Its principal analysis models
+  <strong>Method</strong>, <strong>Scenario</strong>, and their interaction
+  while retaining the paired experimental structure.
+</p>
+
+<table>
+  <tr>
+    <th align="left">Analysis component</th>
+    <th align="left">Reported approach</th>
+  </tr>
+  <tr>
+    <td><strong>Factorial inference</strong></td>
+    <td>Repeated-measures Method × Scenario analysis with Greenhouse–Geisser correction where applicable</td>
+  </tr>
+  <tr>
+    <td><strong>Sensitivity analysis</strong></td>
+    <td>Linear mixed-effects analysis accounting for the paired run/seed structure</td>
+  </tr>
+  <tr>
+    <td><strong>Scenario-specific contrasts</strong></td>
+    <td>Paired differences, 95% confidence intervals, Cohen's d<sub>z</sub>, and Holm adjustment</td>
+  </tr>
+  <tr>
+    <td><strong>Multicriteria comparison</strong></td>
+    <td>Five-criterion TOPSIS with equal-weight reference and alternative weight profiles</td>
+  </tr>
+  <tr>
+    <td><strong>Safety-distance criterion</strong></td>
+    <td>Saturating utility rather than an unbounded reward for increasing separation</td>
+  </tr>
+  <tr>
+    <td><strong>Pareto analysis</strong></td>
+    <td>Full five-criterion vectors and a 9 × 9 dominance matrix</td>
+  </tr>
+  <tr>
+    <td><strong>Computational profiling</strong></td>
+    <td>Separate 54-run benchmark of latency, effective invocation frequency, and CPU measurements</td>
+  </tr>
+</table>
+
+<p>
+  The numerical maximum-acceleration diagnostic and the constant success
+  outcome are not criteria in the primary TOPSIS analysis. A two-dimensional
+  Pareto projection is used for visualization, not as proof of dominance in
+  the full criterion space.
 </p>
 
 <details>
-  <summary><strong>Core engineering contribution</strong></summary>
+  <summary><strong>Core engineering contribution and scope</strong></summary>
 
   <p>
-    The M4 strategy combines an orientation-dependent anisotropic proxemic
-    field, multi-human influence aggregation, continuous local avoidance,
-    velocity modulation, and a non-zero minimum escape velocity.
+    The evaluated M4 strategy uses a longitudinal–lateral anisotropic
+    proxemic field with front–rear symmetry, referenced to the nearest
+    detected human, together with continuous velocity regulation.
+    The current description does not claim a guaranteed nonzero minimum
+    escape velocity or multi-human influence aggregation.
   </p>
 
   <p>
-    This formulation is designed to preserve robot mobility in constrained
-    scenarios where binary STOP/GO supervisors can become operationally
-    blocked by stationary workers.
+    The results characterize the evaluated Unity simulation scenarios.
+    Physical deployment, worst-case real-time behavior, and safety with
+    real workers require separate validation.
   </p>
 </details>
+
+<h2 id="data-availability">Data Availability and Versioning</h2>
+
+<p>
+  The final navigation dataset is available under
+  <a href="./results/Data2/Results/"><code>results/Data2/Results/</code></a>.
+  The separate computational benchmark is available under
+  <a href="./results/Data2/ControllerBenchmark/"><code>results/Data2/ControllerBenchmark/</code></a>.
+  The 54 benchmark runs are not part of the 360-run navigation sample.
+</p>
+
+<p>
+  The revised manuscript also refers to Supplementary Table S1 for the
+  complete scenario-specific statistical contrasts. That table must be
+  checked and supplied as supplementary material; a reference to S1 in
+  the manuscript does not mean that its file is already included here.
+</p>
 
 <h2>Authors</h2>
 
@@ -350,5 +431,3 @@
 </p>
 
 <hr>
-
-</div>
