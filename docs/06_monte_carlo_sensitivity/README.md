@@ -70,6 +70,6 @@
   &nbsp;·&nbsp;
   <a href="../README.md">Index</a>
   &nbsp;·&nbsp;
-  <a href="../07_state_of_the_art_and_references/">Document 07 →</a>
+  <a href="../07_State_of_the_Art_and_References/">Document 07 →</a>
 </p>
 
