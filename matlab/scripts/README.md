@@ -17,8 +17,6 @@
 </p>
 
 <p>
-  <a href="./RobotExperimentDashboard_V7_5_AutoCampaign.m"><strong>Open the MATLAB source</strong></a>
-  ·
   <a href="../../results/Data2/Results/"><strong>Navigation dataset</strong></a>
   ·
   <a href="../../results/Data2/ControllerBenchmark/"><strong>Separate computational benchmark</strong></a>
