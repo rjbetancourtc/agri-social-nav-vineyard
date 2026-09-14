@@ -1,7 +1,16 @@
-function RobotExperimentDashboard_V7_4_Baselines_B1_B4
+function RobotExperimentDashboard_V7_5_AutoCampaign
 % =========================================================================
-% EXPERIMENTAL DASHBOARD V7.4 - SOCIAL AGRICULTURAL ROBOT
+% EXPERIMENTAL DASHBOARD V7.5 - SOCIAL AGRICULTURAL ROBOT
 % =========================================================================
+% V7.5 UPDATE:
+%   - Continuous automatic campaign receiver: one MATLAB START for all runs.
+%   - Unity is authoritative for method/scenario through UDP fields 9/10.
+%   - Automatic RunID assignment using master_log.csv + existing files.
+%   - Auto-save no longer closes UDP/timer between runs.
+%   - Strict mission protocol: status 0=A->B, 1=B reached, 2=SUCCESS; 3+=failure.
+%   - Metrics and saved telemetry are restricted to missionStartIdx:missionEndIdx.
+%   - Existing V7.4 LiDAR visualization and metrics are preserved.
+%
 % V7.4 UPDATE:
 %   - Adds external baseline methods B2, B3 and B4 for E1-E4 acquisition.
 %   - B1 = Social DWA, B2 = ORCA/RVO, B3 = Social Force, B4 = CBF-Social-DWA.
@@ -131,7 +140,42 @@ cfg.stopThreshold = 0.05;
 cfg.autoStopTimeout = 5.0;
 cfg.runsPerCell = 10;
 
-% V7.2: fallback parameters
+% =========================================================================
+% V7.5 AUTOMATIC CAMPAIGN RECEIVER
+% =========================================================================
+% true  -> Unity selects method/scenario; MATLAB only receives, measures,
+%          saves and prepares itself for the next run.
+% false -> legacy manual Method/Scenario/Run controls remain usable.
+cfg.automaticCampaignReceiver = true;
+
+% UDP numeric coding expected from Unity:
+% RobotSocialNavController.ExperimentMode:
+%   0=M0, 1=M1, 2=M2, 3=M3, 4=M4, 5=B1, 6=B2, 7=B3, 8=B4.
+cfg.unityMethodBase = 0;
+
+% Scenario coding expected from Unity:
+%   1=E1, 2=E2, 3=E3, 4=E4.
+% Change to 0 only if Unity is explicitly transmitting E1=0..E4=3.
+cfg.unityScenarioBase = 1;
+
+% Keep the UDP socket and MATLAB timer alive between consecutive runs.
+cfg.keepUdpAliveBetweenRuns = true;
+
+% Optional failure status codes that MATLAB already understands.
+% Unity can use them later without changing this dashboard:
+%   3=TIMEOUT, 4=COLLISION, 5=STUCK, 6=ABORTED.
+cfg.statusSuccess   = 2;
+cfg.statusTimeout   = 3;
+cfg.statusCollision = 4;
+cfg.statusStuck     = 5;
+cfg.statusAborted   = 6;
+
+% IMPORTANT for unattended campaigns:
+% MATLAB must not end a run before Unity does. Therefore the old proximity
+% fallback is disabled by default. Enable only for diagnostic/manual use.
+cfg.enableProximityFallback = false;
+
+% V7.2 fallback/timeout parameters
 cfg.missionTimeout = 180;
 cfg.proximityThreshold = 1.5;
 cfg.proximityMinTime = 60;
@@ -173,6 +217,14 @@ S.runAlreadySaved = false;
 S.reachedBLogged = false;
 S.timeoutWarned = false;
 
+% V7.5 automatic run identity.
+S.activeMethod = '';
+S.activeScenario = '';
+S.activeRunID = NaN;
+S.identityLocked = false;
+S.identityMismatchCount = 0;
+S.runResult = 'NONE';
+
 S.packetCount = 0;
 S.invalidCount = 0;
 S.outOfOrderCount = 0;
@@ -184,13 +236,13 @@ S.acquisitionStart = tic;
 H = struct();
 
 fig = figure( ...
-    'Name','Experimental Dashboard V7.4 - Social Agricultural Robot', ...
+    'Name','Experimental Dashboard V7.5 - Social Agricultural Robot', ...
     'NumberTitle','off', 'Color','w', ...
     'Position',[60 50 1500 850], ...
     'CloseRequestFcn',@closeFigure);
 
 panel = uipanel(fig, ...
-    'Title','Experimental control V7.4 (B1-B4 baselines + auto-save + fallback)', ...
+    'Title','Experimental control V7.5 (continuous auto-campaign receiver)', ...
     'FontWeight','bold', 'FontSize',10, ...
     'Units','normalized', 'Position',[0.01 0.02 0.22 0.96]);
 
@@ -213,6 +265,13 @@ uicontrol(panel,'Style','text','String','Run ID (1..10):', ...
     'HorizontalAlignment','left','FontWeight','bold');
 runEdit = uicontrol(panel,'Style','edit','String','1', ...
     'Units','normalized','Position',[0.55 0.81 0.40 0.030]);
+
+% In automatic campaign mode these controls are indicators only.
+if cfg.automaticCampaignReceiver
+    set(methodMenu,'Enable','off');
+    set(scenarioMenu,'Enable','off');
+    set(runEdit,'Enable','off');
+end
 
 uicontrol(panel,'Style','text','String','UDP Port:', ...
     'Units','normalized','Position',[0.05 0.775 0.50 0.025], ...
@@ -239,6 +298,11 @@ autoSaveCheck = uicontrol(panel,'Style','checkbox', ...
     'Value',1, ...
     'Units','normalized','Position',[0.05 0.675 0.90 0.025], ...
     'BackgroundColor',[0.95 0.95 0.95]);
+
+if cfg.automaticCampaignReceiver
+    set(autoSaveCheck,'Value',1);
+    set(autoSaveCheck,'Enable','off');
+end
 
 missionStatusBox = uicontrol(panel,'Style','text', ...
     'String','Mission: NO DATA', ...
@@ -304,7 +368,7 @@ infoBox = uicontrol(panel,'Style','text', ...
     'BackgroundColor',[0.95 0.95 0.95], 'FontSize',8);
 
 statusBox = uicontrol(panel,'Style','listbox', ...
-    'String',{'System ready V7.4.'}, ...
+    'String',{'System ready V7.5 AUTO CAMPAIGN.'}, ...
     'Units','normalized','Position',[0.05 0.04 0.90 0.190], ...
     'FontName','Consolas', 'FontSize',8);
 
@@ -393,7 +457,11 @@ initAxes();
         start(S.timer);
 
         addStatus(sprintf('UDP opened on port %d.', cfg.port));
-        addStatus('Acquisition started (V7.4 with B1-B4 baselines + fallback).');
+        addStatus('Acquisition started (V7.5 continuous auto-campaign receiver).');
+        if cfg.automaticCampaignReceiver
+            addStatus('AUTO MODE: Method/Scenario/Run are controlled by Unity + received UDP identity.');
+            addStatus('Leave MATLAB acquisition running for the full campaign.');
+        end
     end
 
     function timerCallback(~,~)
@@ -480,52 +548,210 @@ initAxes();
                     S.packetCount = S.packetCount + 1;
                     S.lastPacketTime = tic;
 
-                    if ~S.missionStarted && valuesAll(3) > 0.05
+                    % =====================================================
+                    % V7.5 AUTOMATIC IDENTITY + MISSION PROTOCOL
+                    % =====================================================
+                    statusNow = round(valuesAll(8));
+
+                    % Start detection keeps compatibility with the existing
+                    % Unity stream: the mission is considered physically
+                    % started when the robot begins moving.
+                    if ~S.missionStarted && valuesAll(3) > cfg.stopThreshold
+                        [methodNow, scenarioNow, identityOK] = ...
+                            decodeUnityIdentity(valuesAll(9), valuesAll(10));
+
+                        if identityOK
+                            S.activeMethod = methodNow;
+                            S.activeScenario = scenarioNow;
+                            S.activeRunID = getNextRunID(methodNow, scenarioNow);
+                            S.identityLocked = true;
+                            S.identityMismatchCount = 0;
+
+                            updateAutomaticIdentityUI( ...
+                                S.activeMethod, S.activeScenario, S.activeRunID);
+
+                            addStatus(sprintf( ...
+                                'AUTO IDENTITY: %s | %s | Run %d', ...
+                                S.activeMethod, S.activeScenario, S.activeRunID));
+                        else
+                            S.identityLocked = false;
+                            addStatus(sprintf( ...
+                                ['ERROR: invalid Unity identity. ' ...
+                                 'rawMethod=%g rawScenario=%g'], ...
+                                valuesAll(9), valuesAll(10)));
+                        end
+
                         S.missionStarted = true;
                         S.missionStartIdx = numel(S.t);
+                        S.runResult = 'RUNNING';
+
                         addStatus(sprintf( ...
-                            '>>> MISSION STARTED at t=%.2fs (M%d, E%d)', ...
-                            valuesAll(1), valuesAll(9), valuesAll(10)));
+                            '>>> MISSION STARTED at t=%.2fs', valuesAll(1)));
                     end
 
-                    if ~S.missionCompleted && valuesAll(8) == 2
-                        S.missionCompleted = true;
-                        S.missionEndIdx = numel(S.t);
-                        addStatus(sprintf( ...
-                            '*** MISSION COMPLETED at t=%.2fs ***', ...
-                            valuesAll(1)));
-                    elseif valuesAll(8) == 1 && ~S.reachedBLogged
+                    % Validate that Unity does not change method/scenario
+                    % during an active run.
+                    if S.missionStarted && S.identityLocked
+                        [methodCheck, scenarioCheck, identityOK] = ...
+                            decodeUnityIdentity(valuesAll(9), valuesAll(10));
+
+                        if identityOK && ...
+                           (~strcmp(methodCheck,S.activeMethod) || ...
+                            ~strcmp(scenarioCheck,S.activeScenario))
+                            S.identityMismatchCount = ...
+                                S.identityMismatchCount + 1;
+
+                            if S.identityMismatchCount == 1
+                                addStatus(sprintf( ...
+                                    ['WARNING: Unity identity changed inside run: ' ...
+                                     '%s/%s -> %s/%s'], ...
+                                    S.activeMethod, S.activeScenario, ...
+                                    methodCheck, scenarioCheck));
+                            end
+                        end
+                    end
+
+                    % status=1: B reached, now returning to A.
+                    if S.missionStarted && ...
+                       ~S.missionCompleted && ...
+                       statusNow == 1 && ...
+                       ~S.reachedBLogged
+
                         S.reachedBLogged = true;
                         addStatus(sprintf( ...
                             '=== Reached B at t=%.2fs, returning to A ===', ...
                             valuesAll(1)));
                     end
 
-                    % V7.2: FALLBACK by proximity to A
-                    if ~S.missionCompleted && S.reachedBLogged && ...
-                       valuesAll(1) > cfg.proximityMinTime
-                        if numel(S.t) > 5
-                            distA_xz = sqrt( (valuesAll(5) - S.px(1))^2 + ...
-                                             (valuesAll(7) - S.pz(1))^2 );
+                    % status=2: SUCCESS only after B was observed.
+                    if S.missionStarted && ...
+                       S.reachedBLogged && ...
+                       ~S.missionCompleted && ...
+                       statusNow == cfg.statusSuccess
+
+                        S.missionCompleted = true;
+                        S.missionEndIdx = numel(S.t);
+                        S.runResult = 'SUCCESS';
+
+                        addStatus(sprintf( ...
+                            '*** MISSION A->B->A COMPLETED at t=%.2fs ***', ...
+                            valuesAll(1)));
+                    end
+
+                    % If Unity reports a terminal failure before the
+                    % robot ever exceeds the velocity threshold, still lock
+                    % identity and close the run so the campaign cannot hang.
+                    if ~S.missionStarted && ...
+                       statusNow >= cfg.statusTimeout && ...
+                       statusNow <= cfg.statusAborted
+
+                        [methodNow, scenarioNow, identityOK] = ...
+                            decodeUnityIdentity(valuesAll(9), valuesAll(10));
+
+                        if identityOK
+                            S.activeMethod = methodNow;
+                            S.activeScenario = scenarioNow;
+                            S.activeRunID = ...
+                                getNextRunID(methodNow, scenarioNow);
+                            S.identityLocked = true;
+                            S.identityMismatchCount = 0;
+                            updateAutomaticIdentityUI( ...
+                                S.activeMethod, ...
+                                S.activeScenario, ...
+                                S.activeRunID);
+                        end
+
+                        S.missionStarted = true;
+                        S.missionStartIdx = 1;
+                        addStatus( ...
+                            ['Mission never exceeded start-speed threshold; ' ...
+                             'closing from Unity failure status.']);
+                    end
+
+                    % Future-ready failure codes. A failed run is still
+                    % closed and saved so the unattended campaign continues.
+                    if S.missionStarted && ~S.missionCompleted
+                        if statusNow == cfg.statusTimeout
+                            S.missionCompleted = true;
+                            S.missionEndIdx = numel(S.t);
+                            S.runResult = 'TIMEOUT';
+                            addStatus('*** RUN TERMINATED: TIMEOUT ***');
+
+                        elseif statusNow == cfg.statusCollision
+                            S.missionCompleted = true;
+                            S.missionEndIdx = numel(S.t);
+                            S.runResult = 'COLLISION';
+                            addStatus('*** RUN TERMINATED: COLLISION ***');
+
+                        elseif statusNow == cfg.statusStuck
+                            S.missionCompleted = true;
+                            S.missionEndIdx = numel(S.t);
+                            S.runResult = 'STUCK';
+                            addStatus('*** RUN TERMINATED: STUCK ***');
+
+                        elseif statusNow == cfg.statusAborted
+                            S.missionCompleted = true;
+                            S.missionEndIdx = numel(S.t);
+                            S.runResult = 'ABORTED';
+                            addStatus('*** RUN TERMINATED: ABORTED ***');
+                        end
+                    end
+
+                    % V7.5 fallback by proximity to mission start A.
+                    % Used only if Unity does not send status=2.
+                    if cfg.enableProximityFallback && ...
+                       ~S.missionCompleted && ...
+                       S.missionStarted && ...
+                       S.reachedBLogged && ...
+                       S.missionStartIdx > 0
+
+                        missionElapsed = ...
+                            valuesAll(1) - S.t(S.missionStartIdx);
+
+                        if missionElapsed > cfg.proximityMinTime && ...
+                           numel(S.t) > S.missionStartIdx + 4
+
+                            startX = S.px(S.missionStartIdx);
+                            startZ = S.pz(S.missionStartIdx);
+                            distA_xz = sqrt( ...
+                                (valuesAll(5) - startX)^2 + ...
+                                (valuesAll(7) - startZ)^2 );
+
                             if distA_xz < cfg.proximityThreshold
                                 S.missionCompleted = true;
                                 S.missionEndIdx = numel(S.t);
+                                S.runResult = 'SUCCESS_FALLBACK';
+
                                 addStatus(sprintf( ...
-                                    '*** MISSION COMPLETED (proximity fallback) at t=%.2fs ***', ...
+                                    ['*** MISSION COMPLETED ' ...
+                                     '(proximity fallback) at t=%.2fs ***'], ...
                                     valuesAll(1)));
                                 addStatus(sprintf( ...
-                                    'Distance to start: %.2fm', distA_xz));
+                                    'Distance to mission start: %.2fm', ...
+                                    distA_xz));
                             end
                         end
                     end
 
-                    % V7.2: 180s TIMEOUT
-                    if ~S.missionCompleted && valuesAll(1) > cfg.missionTimeout && ...
+                    % Mission-relative timeout warning. This no longer uses
+                    % global Unity time.
+                    if S.missionStarted && ...
+                       ~S.missionCompleted && ...
+                       S.missionStartIdx > 0 && ...
                        ~S.timeoutWarned
-                        S.timeoutWarned = true;
-                        addStatus('!!! WARNING: run exceeds 180s.');
-                        addStatus('!!! Robot stuck or threshold too small.');
-                        addStatus('!!! Press DISCARD AND RESTART if so.');
+
+                        missionElapsed = ...
+                            valuesAll(1) - S.t(S.missionStartIdx);
+
+                        if missionElapsed >= cfg.missionTimeout
+                            S.timeoutWarned = true;
+                            addStatus(sprintf( ...
+                                '!!! WARNING: mission exceeds %.1f s.', ...
+                                cfg.missionTimeout));
+                            addStatus( ...
+                                ['Waiting for Unity failure status ' ...
+                                 '(3=TIMEOUT) or manual intervention.']);
+                        end
                     end
 
                 else
@@ -537,7 +763,6 @@ initAxes();
                 if get(autoSaveCheck,'Value') == 1
                     S.autoSaveTriggered = true;
                     addStatus('Auto-save triggered: saving...');
-                    pause(0.3);
                     autoSaveCurrentRun();
                 end
             end
@@ -571,10 +796,15 @@ initAxes();
                 S.lastPlotUpdate = tic;
             end
 
-            if S.packetCount > 0 && timeSinceLastPkt > cfg.autoStopTimeout
-                addStatus(sprintf('Auto-stop: %.1fs without packets.', ...
-                    cfg.autoStopTimeout));
-                stopAcquisition();
+            if ~cfg.keepUdpAliveBetweenRuns
+                if S.packetCount > 0 && ...
+                   timeSinceLastPkt > cfg.autoStopTimeout
+
+                    addStatus(sprintf( ...
+                        'Auto-stop: %.1fs without packets.', ...
+                        cfg.autoStopTimeout));
+                    stopAcquisition();
+                end
             end
 
         catch ME
@@ -623,7 +853,11 @@ initAxes();
         try
             sender = udpport;
             testTime = toc(S.acquisitionStart);
-            msg = sprintf('%.3f,1.50,0.60,0.10,0.0,0.0,0.0', testTime);
+            % Valid 10-field base packet:
+            % t,dist,vel,acc,px,py,pz,status,method,scenario
+            msg = sprintf( ...
+                '%.3f,1.50,0.60,0.10,0.0,0.0,0.0,0,0,1', ...
+                testTime);
             write(sender, msg, "string", "127.0.0.1", cfg.port);
             delete(sender);
             addStatus(['TEST: packet sent -> ', msg]);
@@ -1066,48 +1300,221 @@ initAxes();
     end
 
 % =========================================================================
+% V7.5 AUTOMATIC CAMPAIGN HELPERS
+% =========================================================================
+    function [method, scenario, ok] = decodeUnityIdentity( ...
+            rawMethod, rawScenario)
+
+        method = '';
+        scenario = '';
+        ok = false;
+
+        if ~isfinite(rawMethod) || ~isfinite(rawScenario)
+            return;
+        end
+
+        rawMethod = round(rawMethod);
+        rawScenario = round(rawScenario);
+
+        methodIdx = rawMethod - cfg.unityMethodBase + 1;
+        scenarioIdx = rawScenario - cfg.unityScenarioBase + 1;
+
+        if methodIdx < 1 || methodIdx > numel(cfg.methodCodes)
+            return;
+        end
+
+        if scenarioIdx < 1 || ...
+           scenarioIdx > numel(cfg.scenarioCodes)
+            return;
+        end
+
+        method = cfg.methodCodes{methodIdx};
+        scenario = cfg.scenarioCodes{scenarioIdx};
+        ok = true;
+    end
+
+    function runID = getNextRunID(method, scenario)
+        usedRuns = [];
+
+        masterFile = fullfile(cfg.baseFolder, 'master_log.csv');
+
+        if exist(masterFile,'file')
+            try
+                T = readtable(masterFile,'Delimiter',',');
+
+                required = {'Method','Scenario','RunID'};
+                if all(ismember( ...
+                        required, T.Properties.VariableNames))
+
+                    methodCol = string(T.Method);
+                    scenarioCol = string(T.Scenario);
+                    runCol = str2double(string(T.RunID));
+
+                    mask = ...
+                        methodCol == string(method) & ...
+                        scenarioCol == string(scenario);
+
+                    usedRuns = [
+                        usedRuns;
+                        runCol(mask)
+                    ];
+                end
+            catch ME
+                addStatus( ...
+                    ['WARNING reading master_log: ', ME.message]);
+            end
+        end
+
+        % Also inspect raw telemetry CSV files. Metrics files are excluded
+        % by the strict _runNN.csv regular expression.
+        outFolder = fullfile( ...
+            cfg.baseFolder, method, scenario);
+
+        if exist(outFolder,'dir')
+            pattern = sprintf( ...
+                '%s_%s_run*.csv', method, scenario);
+
+            D = dir(fullfile(outFolder, pattern));
+
+            for k = 1:numel(D)
+                token = regexp( ...
+                    D(k).name, ...
+                    '_run(\d+)\.csv$', ...
+                    'tokens', ...
+                    'once');
+
+                if ~isempty(token)
+                    number = str2double(token{1});
+                    if isfinite(number)
+                        usedRuns(end+1,1) = number; %#ok<AGROW>
+                    end
+                end
+            end
+        end
+
+        usedRuns = unique( ...
+            usedRuns(isfinite(usedRuns)));
+
+        for candidate = 1:cfg.runsPerCell
+            if ~ismember(candidate, usedRuns)
+                runID = candidate;
+                return;
+            end
+        end
+
+        if isempty(usedRuns)
+            runID = 1;
+        else
+            runID = max(usedRuns) + 1;
+        end
+
+        addStatus(sprintf( ...
+            ['WARNING: %s_%s already contains all %d planned ' ...
+             'runs. Next free ID=%d.'], ...
+            method, scenario, cfg.runsPerCell, runID));
+    end
+
+    function updateAutomaticIdentityUI(method, scenario, runID)
+        methodIdx = find( ...
+            strcmp(cfg.methodCodes, method), 1);
+
+        scenarioIdx = find( ...
+            strcmp(cfg.scenarioCodes, scenario), 1);
+
+        if ~isempty(methodIdx)
+            set(methodMenu,'Value',methodIdx);
+        end
+
+        if ~isempty(scenarioIdx)
+            set(scenarioMenu,'Value',scenarioIdx);
+        end
+
+        if isfinite(runID)
+            set(runEdit,'String',num2str(runID));
+        end
+    end
+
+    function [idx1, idx2, ok] = getMissionWindow()
+        idx1 = 1;
+        idx2 = numel(S.t);
+        ok = numel(S.t) >= 2;
+
+        if ~ok
+            return;
+        end
+
+        % Prefer explicit mission bounds.
+        if S.missionStartIdx >= 1 && ...
+           S.missionStartIdx <= numel(S.t)
+            idx1 = S.missionStartIdx;
+        end
+
+        if S.missionEndIdx >= idx1 && ...
+           S.missionEndIdx <= numel(S.t)
+            idx2 = S.missionEndIdx;
+        else
+            idx2 = numel(S.t);
+        end
+
+        ok = idx2 > idx1;
+    end
+
+% =========================================================================
 % V7.2 METRICS (T_personal FIX)
 % =========================================================================
     function M = computeMetrics()
-        if numel(S.t) < 2, M = []; return; end
+        [idx1, idx2, ok] = getMissionWindow();
 
-        % V7.2 FIX: use actual dt between samples (NOT constant median)
-        dt_vec = diff(S.t);
+        if ~ok || (idx2 - idx1 + 1) < 2
+            M = [];
+            return;
+        end
+
+        t = S.t(idx1:idx2);
+        dist = S.dist(idx1:idx2);
+        vel = S.vel(idx1:idx2);
+        acc = S.acc(idx1:idx2);
+        px = S.px(idx1:idx2);
+        pz = S.pz(idx1:idx2);
+
+        % Use actual dt between samples.
+        dt_vec = diff(t);
         dt_med = median(dt_vec);
-        if ~isfinite(dt_med) || dt_med <= 0, dt_med = 0.1; end
+        if ~isfinite(dt_med) || dt_med <= 0
+            dt_med = 0.1;
+        end
 
-        % Cleanup of anomalous dt values
         bad_dt = dt_vec <= 0 | dt_vec > 2.0;
         dt_vec(bad_dt) = dt_med;
 
-        % Zone times weighted by actual dt
-        dist_arr = S.dist(:);
-        vel_arr  = S.vel(:);
-        dt_col   = dt_vec(:);
+        dist_arr = dist(:);
+        vel_arr = vel(:);
+        dt_col = dt_vec(:);
 
         in_social   = dist_arr(1:end-1) < cfg.socialZone;
         in_personal = dist_arr(1:end-1) < cfg.personalZone;
         in_intimate = dist_arr(1:end-1) < cfg.intimateZone;
-        is_stopped  = vel_arr(1:end-1)  < cfg.stopThreshold;
+        is_stopped  = vel_arr(1:end-1) < cfg.stopThreshold;
 
         M.SocialTime_s   = sum(in_social   .* dt_col);
         M.PersonalTime_s = sum(in_personal .* dt_col);
-        M.IntimateTime_s   = sum(in_intimate .* dt_col);
+        M.IntimateTime_s = sum(in_intimate .* dt_col);
         M.StopTime_s     = sum(is_stopped  .* dt_col);
 
-        M.TotalTime_s = S.t(end) - S.t(1);
+        M.TotalTime_s = t(end) - t(1);
 
-        % Saturation: times CANNOT exceed duration
+        % Zone-time saturation.
         M.SocialTime_s   = min(M.SocialTime_s,   M.TotalTime_s);
         M.PersonalTime_s = min(M.PersonalTime_s, M.TotalTime_s);
-        M.IntimateTime_s   = min(M.IntimateTime_s,   M.TotalTime_s);
+        M.IntimateTime_s = min(M.IntimateTime_s, M.TotalTime_s);
         M.StopTime_s     = min(M.StopTime_s,     M.TotalTime_s);
 
-        % Trajectory
-        dx = diff(S.px); dz = diff(S.pz);
+        % Trajectory.
+        dx = diff(px);
+        dz = diff(pz);
         M.PathLength_m = sum(sqrt(dx.^2 + dz.^2));
 
-        stopped_full = S.vel < cfg.stopThreshold;
+        stopped_full = vel < cfg.stopThreshold;
         if numel(stopped_full) >= 2
             transitions = diff(double(stopped_full));
             M.NumberOfStops = sum(transitions == 1);
@@ -1115,22 +1522,23 @@ initAxes();
             M.NumberOfStops = 0;
         end
 
-        M.MinDistance_m     = min(S.dist);
-        M.MeanDistance_m   = mean(S.dist);
-        M.MedianDistance_m = median(S.dist);
-        M.DistanceP05_m     = prctile(S.dist, 5);
-        M.DistanceIQR_m     = iqr(S.dist);
+        M.MinDistance_m     = min(dist);
+        M.MeanDistance_m    = mean(dist);
+        M.MedianDistance_m  = median(dist);
+        M.DistanceP05_m     = prctile(dist, 5);
+        M.DistanceIQR_m     = iqr(dist);
 
-        M.MeanVelocity_mps   = mean(S.vel);
-        M.MedianVelocity_mps = median(S.vel);
-        M.MaxVelocity_mps     = max(S.vel);
-        M.VelocityStd_mps     = std(S.vel);
+        M.MeanVelocity_mps   = mean(vel);
+        M.MedianVelocity_mps = median(vel);
+        M.MaxVelocity_mps    = max(vel);
+        M.VelocityStd_mps    = std(vel);
 
-        M.MaxAcceleration_mps2 = max(abs(S.acc));
-        M.AccRMS_mps2 = sqrt(mean(S.acc.^2));
+        M.MaxAcceleration_mps2 = max(abs(acc));
+        M.AccRMS_mps2 = sqrt(mean(acc.^2));
 
-        if numel(S.acc) > 1
-            jerk_vec = diff(S.acc) ./ max(dt_col, 0.01);
+        if numel(acc) > 1
+            acc_col = acc(:);
+            jerk_vec = diff(acc_col) ./ max(dt_col, 0.01);
             jerk_vec(~isfinite(jerk_vec)) = 0;
             M.JerkMax_mps3 = max(abs(jerk_vec));
             M.JerkRMS_mps3 = sqrt(mean(jerk_vec.^2));
@@ -1154,97 +1562,197 @@ initAxes();
 
         if S.runAlreadySaved
             addStatus('WARNING: This run has already been saved.');
-            addStatus('Press CLEAR and start again.');
             return;
         end
 
         M = computeMetrics();
         if isempty(M)
-            addStatus('Insufficient data for metrics.');
+            addStatus('Insufficient mission data for metrics.');
             return;
         end
 
-        methodIdx    = get(methodMenu,'Value');
-        scenarioIdx = get(scenarioMenu,'Value');
-        method       = cfg.methodCodes{methodIdx};
-        scenario    = cfg.scenarioCodes{scenarioIdx};
+        if cfg.automaticCampaignReceiver
+            if ~S.identityLocked || ...
+               isempty(S.activeMethod) || ...
+               isempty(S.activeScenario) || ...
+               ~isfinite(S.activeRunID)
 
-        runID = str2double(get(runEdit,'String'));
-        if isnan(runID) || runID < 1, runID = 1; end
-
-        outFolder = fullfile(cfg.baseFolder, method, scenario);
-        if ~exist(outFolder,'dir'), mkdir(outFolder); end
-
-        baseName = sprintf('%s_%s_run%02d', method, scenario, runID);
-        csvFile     = fullfile(outFolder, [baseName '.csv']);
-        matFile     = fullfile(outFolder, [baseName '.mat']);
-        metricsFile = fullfile(outFolder, [baseName '_metrics.csv']);
-
-        if exist(csvFile,'file')
-            choice = questdlg( ...
-                sprintf('%s already exists. Overwrite?', baseName), ...
-                'Confirm','Yes','No','No');
-            if ~strcmp(choice,'Yes')
-                addStatus('Save canceled.');
+                addStatus( ...
+                    'ERROR: cannot save; Unity experiment identity is invalid.');
                 return;
+            end
+
+            method = S.activeMethod;
+            scenario = S.activeScenario;
+            runID = S.activeRunID;
+        else
+            methodIdx = get(methodMenu,'Value');
+            scenarioIdx = get(scenarioMenu,'Value');
+            method = cfg.methodCodes{methodIdx};
+            scenario = cfg.scenarioCodes{scenarioIdx};
+
+            runID = str2double(get(runEdit,'String'));
+            if isnan(runID) || runID < 1
+                runID = 1;
             end
         end
 
-        n = numel(S.t);
+        outFolder = fullfile(cfg.baseFolder, method, scenario);
+        if ~exist(outFolder,'dir')
+            mkdir(outFolder);
+        end
+
+        baseName = sprintf('%s_%s_run%02d', method, scenario, runID);
+        csvFile = fullfile(outFolder, [baseName '.csv']);
+        matFile = fullfile(outFolder, [baseName '.mat']);
+        metricsFile = fullfile(outFolder, [baseName '_metrics.csv']);
+
+        % Never block an unattended campaign with a dialog.
+        if exist(csvFile,'file')
+            if cfg.automaticCampaignReceiver
+                addStatus(sprintf( ...
+                    'WARNING: %s exists; searching next free RunID.', ...
+                    baseName));
+
+                while exist(csvFile,'file')
+                    runID = runID + 1;
+                    baseName = sprintf( ...
+                        '%s_%s_run%02d', method, scenario, runID);
+                    csvFile = fullfile(outFolder, [baseName '.csv']);
+                    matFile = fullfile(outFolder, [baseName '.mat']);
+                    metricsFile = ...
+                        fullfile(outFolder, [baseName '_metrics.csv']);
+                end
+
+                S.activeRunID = runID;
+                updateAutomaticIdentityUI(method, scenario, runID);
+            else
+                choice = questdlg( ...
+                    sprintf('%s already exists. Overwrite?', baseName), ...
+                    'Confirm','Yes','No','No');
+
+                if ~strcmp(choice,'Yes')
+                    addStatus('Save canceled.');
+                    return;
+                end
+            end
+        end
+
+        [idx1, idx2, ok] = getMissionWindow();
+        if ~ok
+            addStatus('ERROR: invalid mission window.');
+            return;
+        end
+
+        idx = idx1:idx2;
+        n = numel(idx);
+
         telemetry = table( ...
-            S.t(:), S.dist(:), S.vel(:), S.acc(:), ...
-            S.px(:), S.py(:), S.pz(:), ...
-            repmat(string(method),    n, 1), ...
+            S.t(idx)', ...
+            S.dist(idx)', ...
+            S.vel(idx)', ...
+            S.acc(idx)', ...
+            S.px(idx)', ...
+            S.py(idx)', ...
+            S.pz(idx)', ...
+            S.status(idx)', ...
+            S.methodReceived(idx)', ...
+            S.scenarioReceived(idx)', ...
+            repmat(string(method), n, 1), ...
             repmat(string(scenario), n, 1), ...
-            repmat(runID,             n, 1), ...
-            'VariableNames', {'Time_s','Distance_m','Velocity_mps', ...
-                              'Acceleration_mps2','PosX_m','PosY_m','PosZ_m', ...
-                              'Method','Scenario','RunID'});
+            repmat(runID, n, 1), ...
+            repmat(string(S.runResult), n, 1), ...
+            'VariableNames', { ...
+                'Time_s','Distance_m','Velocity_mps', ...
+                'Acceleration_mps2','PosX_m','PosY_m','PosZ_m', ...
+                'Status','MethodRaw','ScenarioRaw', ...
+                'Method','Scenario','RunID','Result'});
 
         metrics = struct2table(M);
         metrics = addvars(metrics, ...
-            string(method), string(scenario), runID, ...
-            string(char(datetime('now','Format','yyyy-MM-dd HH:mm:ss'))), ...
-            S.packetCount, S.invalidCount, S.outOfOrderCount, ...
-            'NewVariableNames', ...
-            {'Method','Scenario','RunID','Timestamp', ...
-             'PacketsValid','PacketsInvalid','PacketsOutOfOrder'}, ...
+            string(method), ...
+            string(scenario), ...
+            runID, ...
+            string(S.runResult), ...
+            string(char(datetime( ...
+                'now','Format','yyyy-MM-dd HH:mm:ss'))), ...
+            n, ...
+            S.invalidCount, ...
+            S.outOfOrderCount, ...
+            S.identityMismatchCount, ...
+            'NewVariableNames', { ...
+                'Method','Scenario','RunID','Result','Timestamp', ...
+                'PacketsMission','PacketsInvalid', ...
+                'PacketsOutOfOrder','IdentityMismatchCount'}, ...
             'Before', 1);
 
-        writetable(telemetry, csvFile,     'Delimiter',',');
-        writetable(metrics,   metricsFile, 'Delimiter',',');
-        save(matFile, 'telemetry', 'metrics');
+        try
+            writetable(telemetry, csvFile, 'Delimiter',',');
+            writetable(metrics, metricsFile, 'Delimiter',',');
+            save(matFile, 'telemetry', 'metrics');
 
-        updateMasterLog(method, scenario, runID, M);
+            updateMasterLog( ...
+                method, scenario, runID, S.runResult, M);
 
-        S.runAlreadySaved = true;
-
-        addStatus(sprintf('Saved: %s', baseName));
-
-        if runID < cfg.runsPerCell
-            set(runEdit,'String',num2str(runID+1));
-            addStatus(sprintf('Next run: %d', runID+1));
-            addStatus('Clear and start again.');
-        else
+            S.runAlreadySaved = true;
             addStatus(sprintf( ...
-                'Combination %s_%s COMPLETED (10/10).', method, scenario));
+                'Saved: %s | Result=%s', ...
+                baseName, S.runResult));
+        catch ME
+            addStatus(['SAVE ERROR: ', ME.message]);
+            S.runAlreadySaved = false;
+            return;
+        end
+
+        if cfg.automaticCampaignReceiver
+            if runID >= cfg.runsPerCell
+                addStatus(sprintf( ...
+                    'Combination %s_%s reached %d/%d planned runs.', ...
+                    method, scenario, runID, cfg.runsPerCell));
+            end
+        else
+            if runID < cfg.runsPerCell
+                set(runEdit,'String',num2str(runID+1));
+                addStatus(sprintf('Next run: %d', runID+1));
+                addStatus('Clear and start again.');
+            else
+                addStatus(sprintf( ...
+                    'Combination %s_%s COMPLETED (%d/%d).', ...
+                    method, scenario, ...
+                    cfg.runsPerCell, cfg.runsPerCell));
+            end
         end
     end
 
-    function updateMasterLog(method, scenario, runID, M)
+    function updateMasterLog(method, scenario, runID, result, M)
         masterFile = fullfile(cfg.baseFolder, 'master_log.csv');
-        if ~exist(cfg.baseFolder,'dir'), mkdir(cfg.baseFolder); end
+        if ~exist(cfg.baseFolder,'dir')
+            mkdir(cfg.baseFolder);
+        end
 
         newRow = table( ...
-            string(char(datetime('now','Format','yyyy-MM-dd HH:mm:ss'))), ...
-            string(method), string(scenario), runID, ...
-            M.TotalTime_s, M.PathLength_m, ...
-            M.MinDistance_m, M.MeanDistance_m, M.MedianDistance_m, ...
-            M.MeanVelocity_mps, M.MaxVelocity_mps, ...
-            M.MaxAcceleration_mps2, M.JerkMax_mps3, ...
-            M.SocialTime_s, M.PersonalTime_s, M.IntimateTime_s, ...
-            M.StopTime_s, M.NumberOfStops, ...
-            'VariableNames', {'Timestamp','Method','Scenario','RunID', ...
+            string(char(datetime( ...
+                'now','Format','yyyy-MM-dd HH:mm:ss'))), ...
+            string(method), ...
+            string(scenario), ...
+            runID, ...
+            string(result), ...
+            M.TotalTime_s, ...
+            M.PathLength_m, ...
+            M.MinDistance_m, ...
+            M.MeanDistance_m, ...
+            M.MedianDistance_m, ...
+            M.MeanVelocity_mps, ...
+            M.MaxVelocity_mps, ...
+            M.MaxAcceleration_mps2, ...
+            M.JerkMax_mps3, ...
+            M.SocialTime_s, ...
+            M.PersonalTime_s, ...
+            M.IntimateTime_s, ...
+            M.StopTime_s, ...
+            M.NumberOfStops, ...
+            'VariableNames', { ...
+                'Timestamp','Method','Scenario','RunID','Result', ...
                 'TotalTime_s','PathLength_m', ...
                 'MinDistance_m','MeanDistance_m','MedianDistance_m', ...
                 'MeanVelocity_mps','MaxVelocity_mps', ...
@@ -1255,10 +1763,58 @@ initAxes();
         if exist(masterFile,'file')
             try
                 T = readtable(masterFile,'Delimiter',',');
+
+                % Upgrade legacy V7.4 master logs transparently.
+                if ~ismember('Result', T.Properties.VariableNames)
+                    T.Result = repmat("LEGACY", height(T), 1);
+                end
+
+                % Normalize identifier/text columns so old import inference
+                % (cellstr/categorical/datetime) cannot break concatenation.
+                if ismember('Timestamp', T.Properties.VariableNames)
+                    T.Timestamp = string(T.Timestamp);
+                end
+                if ismember('Method', T.Properties.VariableNames)
+                    T.Method = string(T.Method);
+                end
+                if ismember('Scenario', T.Properties.VariableNames)
+                    T.Scenario = string(T.Scenario);
+                end
+                if ismember('Result', T.Properties.VariableNames)
+                    T.Result = string(T.Result);
+                end
+                if ismember('RunID', T.Properties.VariableNames)
+                    if ~isnumeric(T.RunID)
+                        T.RunID = str2double(string(T.RunID));
+                    end
+                end
+
+                % Align variable order with the new row.
+                wanted = newRow.Properties.VariableNames;
+                missing = setdiff(wanted, T.Properties.VariableNames);
+
+                for k = 1:numel(missing)
+                    name = missing{k};
+                    sample = newRow.(name);
+
+                    if isstring(sample)
+                        T.(name) = repmat("", height(T), 1);
+                    else
+                        T.(name) = nan(height(T), 1);
+                    end
+                end
+
+                T = T(:, wanted);
                 T = [T; newRow];
                 writetable(T, masterFile, 'Delimiter',',');
-            catch
-                writetable(newRow, masterFile, 'Delimiter',',');
+            catch ME
+                addStatus(['MASTER LOG WARNING: ', ME.message]);
+                backupFile = fullfile( ...
+                    cfg.baseFolder, ...
+                    ['master_log_recovery_' ...
+                     char(datetime('now','Format','yyyyMMdd_HHmmss')) ...
+                     '.csv']);
+                writetable(newRow, backupFile, 'Delimiter',',');
             end
         else
             writetable(newRow, masterFile, 'Delimiter',',');
@@ -1284,11 +1840,14 @@ initAxes();
             for ei = 1:numel(cfg.scenarioCodes)
                 m = cfg.methodCodes{mi};
                 e = cfg.scenarioCodes{ei};
-                mask = strcmp(T.Method, m) & strcmp(T.Scenario, e);
+                mask = string(T.Method) == string(m) & ...
+                       string(T.Scenario) == string(e);
                 runsDone = numel(unique(T.RunID(mask)));
+                runsDone = min(runsDone, cfg.runsPerCell);
                 totalDone = totalDone + runsDone;
                 if runsDone > 0
-                    addStatus(sprintf('  %s_%s: %d/10', m, e, runsDone));
+                    addStatus(sprintf('  %s_%s: %d/%d', ...
+                    m, e, runsDone, cfg.runsPerCell));
                 end
             end
         end
@@ -1298,18 +1857,30 @@ initAxes();
     end
 
     function captureDashboard(~,~)
-        methodIdx    = get(methodMenu,'Value');
-        scenarioIdx = get(scenarioMenu,'Value');
-        method       = cfg.methodCodes{methodIdx};
-        scenario    = cfg.scenarioCodes{scenarioIdx};
-        runID = str2double(get(runEdit,'String'));
-        if isnan(runID), runID = 1; end
+        if cfg.automaticCampaignReceiver && S.identityLocked
+            method = S.activeMethod;
+            scenario = S.activeScenario;
+            runID = S.activeRunID;
+        else
+            methodIdx = get(methodMenu,'Value');
+            scenarioIdx = get(scenarioMenu,'Value');
+            method = cfg.methodCodes{methodIdx};
+            scenario = cfg.scenarioCodes{scenarioIdx};
+
+            runID = str2double(get(runEdit,'String'));
+            if isnan(runID)
+                runID = 1;
+            end
+        end
 
         outFolder = fullfile(cfg.baseFolder, method, scenario);
-        if ~exist(outFolder,'dir'), mkdir(outFolder); end
+        if ~exist(outFolder,'dir')
+            mkdir(outFolder);
+        end
 
         timestamp = char(datetime('now','Format','yyyyMMdd_HHmmss'));
-        baseName = sprintf('%s_%s_run%02d_dashboard_%s.png', ...
+        baseName = sprintf( ...
+            '%s_%s_run%02d_dashboard_%s.png', ...
             method, scenario, runID, timestamp);
         pngFile = fullfile(outFolder, baseName);
 
@@ -1421,6 +1992,13 @@ S.mapBushKeys = strings(0,1);
         S.reachedBLogged = false;
         S.timeoutWarned = false;
 
+        S.activeMethod = '';
+        S.activeScenario = '';
+        S.activeRunID = NaN;
+        S.identityLocked = false;
+        S.identityMismatchCount = 0;
+        S.runResult = 'NONE';
+
         set(startBtn,'Enable','on');
         set(stopBtn,'Enable','off');
 
@@ -1477,18 +2055,35 @@ S.mapBushKeys = strings(0,1);
         S.reachedBLogged = false;
         S.timeoutWarned = false;
 
+        S.activeMethod = '';
+        S.activeScenario = '';
+        S.activeRunID = NaN;
+        S.identityLocked = false;
+        S.identityMismatchCount = 0;
+        S.runResult = 'NONE';
+
         set(infoBox,'String','Waiting to start...', ...
             'BackgroundColor',[0.95 0.95 0.95]);
         set(missionStatusBox,'String','Mission: NO DATA', ...
             'BackgroundColor',[0.85 0.85 0.85]);
         initAxes();
-        addStatus('Run cleared. Ready for a new run.');
+        if cfg.automaticCampaignReceiver
+            addStatus('Run buffer cleared. Waiting for next Unity run.');
+        else
+            addStatus('Run cleared. Ready for a new run.');
+        end
     end
 
     function updateMissionStatusIndicator()
         if S.missionCompleted
-            txt = 'Mission: COMPLETED';
-            color = [0.7 1.0 0.7];
+            if strcmp(S.runResult,'SUCCESS') || ...
+               strcmp(S.runResult,'SUCCESS_FALLBACK')
+                txt = ['Mission: COMPLETED - ' S.runResult];
+                color = [0.7 1.0 0.7];
+            else
+                txt = ['Mission: ENDED - ' S.runResult];
+                color = [1.0 0.8 0.6];
+            end
         elseif S.missionStarted
             txt = sprintf('Mission: NAVIGATING (%.1fs)', ...
                 S.t(end) - S.t(S.missionStartIdx));
@@ -1505,24 +2100,52 @@ S.mapBushKeys = strings(0,1);
     end
 
     function autoSaveCurrentRun()
-        S.isRunning = false;
-
-        try
-            if ~isempty(S.timer) && isvalid(S.timer)
-                stop(S.timer);
-                pause(0.1);
-                delete(S.timer);
-                S.timer = [];
-            end
-        catch
+        % V7.5: NEVER close UDP or timer here.
+        if ~S.missionCompleted
+            addStatus( ...
+                'AUTO SAVE ignored: mission is not completed.');
+            return;
         end
 
-        set(startBtn,'Enable','on');
-        set(stopBtn,'Enable','off');
+        if cfg.automaticCampaignReceiver && ...
+           ~S.identityLocked
+            addStatus( ...
+                'AUTO SAVE ERROR: experiment identity is not valid.');
+            return;
+        end
 
-        saveCurrentRun();
+        if S.runAlreadySaved
+            return;
+        end
 
-        addStatus('Press Stop in Unity, then START for the next one.');
+        saveCurrentRun([],[]);
+
+        if S.runAlreadySaved
+            savedMethod = S.activeMethod;
+            savedScenario = S.activeScenario;
+            savedRunID = S.activeRunID;
+            savedResult = S.runResult;
+
+            addStatus(sprintf( ...
+                'AUTO RUN COMPLETE: %s_%s_run%02d | %s', ...
+                savedMethod, savedScenario, ...
+                savedRunID, savedResult));
+
+            addStatus( ...
+                'Keeping UDP open. Preparing next Unity run...');
+
+            clearCurrentData([],[]);
+
+            % clearCurrentData only resets the run buffers/state.
+            % It does not destroy S.u or S.timer.
+            S.isRunning = true;
+
+            set(startBtn,'Enable','off');
+            set(stopBtn,'Enable','on');
+
+            addStatus( ...
+                'AUTO RECEIVER ARMED FOR NEXT RUN.');
+        end
     end
 
     function nextRun(~,~)

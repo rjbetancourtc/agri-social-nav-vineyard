@@ -112,6 +112,9 @@ public class SocialDWAController : MonoBehaviour
 
     private void RunSocialDWA()
     {
+        long benchmarkStartTicks =
+    ControllerBenchmarkRecorder.BeginCycle();
+
         Stopwatch sw = null;
 
         if (config.logCpuTime)
@@ -266,6 +269,11 @@ public class SocialDWAController : MonoBehaviour
                 $"Rejected={rejected}/{evaluated}"
             );
         }
+        // TODO EL SOCIAL DWA ORIGINAL
+        // NO CAMBIAR NADA DEL ALGORITMO
+        ControllerBenchmarkRecorder.EndCycle(
+    benchmarkStartTicks
+    );
     }
 
     private Vector3 GetLocalWaypointFromNavMesh()
