@@ -26,16 +26,7 @@
 
 ---
 
-<blockquote>
-  <p>
-    <strong>Version and scope.</strong> The MATLAB source published in this
-    directory is <code>RobotExperimentDashboard_V7_5_AutoCampaign.m</code>.
-    The former README recommended a V7.4 file that is not present here.
-    V7.5 acquires telemetry and calculates per-run metrics. The factorial
-    inference, mixed-effects models, TOPSIS, and Pareto analyses reported
-    in the revised manuscript are separate analyses; this dashboard alone
-    does not execute them.
-  </p>
+
 </blockquote>
 
 <h2>What V7.5 does</h2>
