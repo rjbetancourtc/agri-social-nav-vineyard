@@ -1,5 +1,11 @@
 README.md
-
+<blockquote>
+  <p><strong>ARCHIVED ANALYSIS.</strong> This page and its linked PDFs document
+  an earlier experimental analysis. Their sample counts, tests, and decision
+  criteria must not be treated as results of the revised 360-run manuscript.
+  For the current protocol, see
+  <a href="../08_revised_manuscript_2026/">Document 08</a>.</p>
+</blockquote>
 
 <div align="center">
 
