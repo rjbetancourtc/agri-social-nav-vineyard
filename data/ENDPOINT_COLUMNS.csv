@@ -1,0 +1,49 @@
+variable,dtype,missing,unit
+AttemptID,int64,0,see DICTIONARY.md
+CampaignID,object,0,see DICTIONARY.md
+Method,int64,0,see DICTIONARY.md
+RunID,int64,0,see DICTIONARY.md
+Scenario,int64,0,see DICTIONARY.md
+Seed,int64,0,see DICTIONARY.md
+metricVersion,float64,0,see DICTIONARY.md
+packetGaps,int64,0,see DICTIONARY.md
+protocol,int64,0,see DICTIONARY.md
+receiverVersion,object,0,see DICTIONARY.md
+result,int64,0,see DICTIONARY.md
+samples,int64,0,see DICTIONARY.md
+started,bool,0,see DICTIONARY.md
+terminalHash,object,0,see DICTIONARY.md
+Duration_s,float64,0,s
+Exposure045_s,float64,0,s
+Exposure12_s,float64,0,s
+Exposure36_s,float64,0,s
+GapCount,int64,0,see DICTIONARY.md
+LengthXZ_m,float64,0,m
+MaxFiltered_mps,float64,0,m/s
+MaxRealized_mps,float64,1,m/s
+MeanFilteredSample_mps,float64,0,m/s
+MeanFilteredTime_mps,float64,1,m/s
+MinGroundTruthXZ_m,float64,0,m
+MissingGroundTruth_s,float64,0,s
+NoHuman_s,float64,0,s
+OriginalMetricTimeInvalid,bool,0,see DICTIONARY.md
+Samples,int64,0,see DICTIONARY.md
+SourceMetricVersion,object,0,see DICTIONARY.md
+StopTime002_s,float64,1,s
+StopTime005_s,float64,1,s
+StopTime010_s,float64,1,s
+TimeInvalid,bool,0,see DICTIONARY.md
+Version,float64,0,see DICTIONARY.md
+ZeroDurationPoseIntervals,int64,0,see DICTIONARY.md
+TechnicalMissing,bool,0,see DICTIONARY.md
+Identity,object,0,see DICTIONARY.md
+EndpointSource,object,0,see DICTIONARY.md
+ReceiverPacketGaps,int64,0,see DICTIONARY.md
+Failure,float64,0,see DICTIONARY.md
+IntimateEvent,float64,0,see DICTIONARY.md
+DurationCompleted_s,float64,94,s
+MissionUtility,float64,0,see DICTIONARY.md
+SafetyUtility,float64,0,see DICTIONARY.md
+PersonalExposureFraction,float64,0,see DICTIONARY.md
+Block,object,0,see DICTIONARY.md
+FailureIncludingTechnicalSensitivity,float64,0,see DICTIONARY.md

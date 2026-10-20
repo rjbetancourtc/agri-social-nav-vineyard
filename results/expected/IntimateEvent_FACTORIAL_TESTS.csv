@@ -1,0 +1,5 @@
+,statistic,pvalue,df_constraint,df_denom
+Intercept,,,0,324.0
+"C(Method, Sum)",,,0,324.0
+"C(Scenario, Sum)",,,0,324.0
+"C(Method, Sum):C(Scenario, Sum)",,,0,324.0

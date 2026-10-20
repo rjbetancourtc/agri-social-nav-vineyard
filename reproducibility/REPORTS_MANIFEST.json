@@ -1,0 +1,196 @@
+{
+  "campaign": "EVAL_20261019_112257",
+  "reports": [
+    {
+      "file": "docs/01_descriptive_statistics/01_descriptive_statistics_en.pdf",
+      "pages": 3,
+      "characters": 5163,
+      "authorsInOrder": true,
+      "rendered": true,
+      "numericalTokensUnchangedFromSource": true,
+      "sha256": "5c2ac0882ebde41084ef7ffd4a3e671e0c85e4c300511ab3b7e460cc01b92da8"
+    },
+    {
+      "file": "docs/01_descriptive_statistics/01_estadistica_descriptiva_es.pdf",
+      "pages": 3,
+      "characters": 5222,
+      "authorsInOrder": true,
+      "rendered": true,
+      "numericalTokensUnchangedFromSource": true,
+      "sha256": "c11b486c03895b6052c0b0e775cf2b86524bc0cbec04dc8bed7d3743abd7a4ac"
+    },
+    {
+      "file": "docs/02_omnibus_tests/02_omnibus_tests_en.pdf",
+      "pages": 3,
+      "characters": 3171,
+      "authorsInOrder": true,
+      "rendered": true,
+      "numericalTokensUnchangedFromSource": true,
+      "sha256": "58c3ad5b4a16dfc3e1cc8cd0e8f97fa1ea8611a00e79be525e743c4136ddd42f"
+    },
+    {
+      "file": "docs/02_omnibus_tests/02_pruebas_omnibus_es.pdf",
+      "pages": 3,
+      "characters": 3361,
+      "authorsInOrder": true,
+      "rendered": true,
+      "numericalTokensUnchangedFromSource": true,
+      "sha256": "51d3cca2c4139c02fccd4baf099b592fd6fc816497d6ac5f09205c41a7253d19"
+    },
+    {
+      "file": "docs/03_pairwise_comparisons/03_comparaciones_entre_metodos_es.pdf",
+      "pages": 5,
+      "characters": 8798,
+      "authorsInOrder": true,
+      "rendered": true,
+      "numericalTokensUnchangedFromSource": true,
+      "sha256": "823d132c913f8d3760be3cc3c822d468e209bbf9a5195ed8b635aa14c044b143"
+    },
+    {
+      "file": "docs/03_pairwise_comparisons/03_pairwise_comparisons_en.pdf",
+      "pages": 5,
+      "characters": 8699,
+      "authorsInOrder": true,
+      "rendered": true,
+      "numericalTokensUnchangedFromSource": true,
+      "sha256": "616096acc257c7cf4ca308ea9683b5e848b8cc98a45a854a4c71bb388bd137aa"
+    },
+    {
+      "file": "docs/04_success_rate_tests/04_success_rates_en.pdf",
+      "pages": 4,
+      "characters": 4466,
+      "authorsInOrder": true,
+      "rendered": true,
+      "numericalTokensUnchangedFromSource": true,
+      "sha256": "724a247b51c228e8c8c2507dafd994ae996252c874a92aa2cea46ac641b19136"
+    },
+    {
+      "file": "docs/04_success_rate_tests/04_tasas_exito_es.pdf",
+      "pages": 4,
+      "characters": 4561,
+      "authorsInOrder": true,
+      "rendered": true,
+      "numericalTokensUnchangedFromSource": true,
+      "sha256": "ba1a847787b352538d530958401e2f6513640949ff1d02827baa13e59c34316d"
+    },
+    {
+      "file": "docs/05_topsis_multicriteria/05_topsis_en.pdf",
+      "pages": 6,
+      "characters": 7125,
+      "authorsInOrder": true,
+      "rendered": true,
+      "numericalTokensUnchangedFromSource": true,
+      "sha256": "7531bf3db28eec3b9dc5b22903edcd1e005de617eaac2ae18487fe17c3076c79"
+    },
+    {
+      "file": "docs/05_topsis_multicriteria/05_topsis_es.pdf",
+      "pages": 6,
+      "characters": 7289,
+      "authorsInOrder": true,
+      "rendered": true,
+      "numericalTokensUnchangedFromSource": true,
+      "sha256": "bf92463cc57857403f651f168b9c1fe690771e946210f1d7b72e1c5adf469bc8"
+    },
+    {
+      "file": "docs/06_monte_carlo_sensitivity/06_monte_carlo_en.pdf",
+      "pages": 4,
+      "characters": 5372,
+      "authorsInOrder": true,
+      "rendered": true,
+      "numericalTokensUnchangedFromSource": true,
+      "sha256": "35bae9b718a0d6c9e6e02c7cda581c50138cd1d512756df2322af4d8e8fb9033"
+    },
+    {
+      "file": "docs/06_monte_carlo_sensitivity/06_monte_carlo_es.pdf",
+      "pages": 4,
+      "characters": 5482,
+      "authorsInOrder": true,
+      "rendered": true,
+      "numericalTokensUnchangedFromSource": true,
+      "sha256": "debdb1cb0a68620da4552707fa18049e83ca392bf0b558741749ac9b47b5325f"
+    },
+    {
+      "file": "docs/07_State_of_the_Art_and_References/07_estado_del_arte_y_referencias_es.pdf",
+      "pages": 3,
+      "characters": 6813,
+      "authorsInOrder": true,
+      "rendered": true,
+      "numericalTokensUnchangedFromSource": true,
+      "sha256": "4120c763d6d6a53018955078e8e9851303a703a4596a79ced9fc42d60ac38c07"
+    },
+    {
+      "file": "docs/07_State_of_the_Art_and_References/07_state_of_the_art_and_technical_references_en.pdf",
+      "pages": 3,
+      "characters": 6762,
+      "authorsInOrder": true,
+      "rendered": true,
+      "numericalTokensUnchangedFromSource": true,
+      "sha256": "d2cf14e91286cb90596084a6b95c8d53c30213dfca70298f900b7359ac9f1090"
+    },
+    {
+      "file": "docs/08_revised_manuscript_2026/08_measurements_and_benchmark_en.pdf",
+      "pages": 2,
+      "characters": 3608,
+      "authorsInOrder": true,
+      "rendered": true,
+      "numericalTokensUnchangedFromSource": true,
+      "sha256": "9f4a8b2e4bff94c4622d1a65baf5acd7827b1ff0c2c03128eca71b327d97fa97"
+    },
+    {
+      "file": "docs/08_revised_manuscript_2026/08_mediciones_y_benchmark_es.pdf",
+      "pages": 2,
+      "characters": 3770,
+      "authorsInOrder": true,
+      "rendered": true,
+      "numericalTokensUnchangedFromSource": true,
+      "sha256": "5262ab40b52dd9fd27165a96a3ee581306d0dbb041fad086eea594097b1f181d"
+    },
+    {
+      "file": "docs/09_reproducibility/09_reproducibilidad_es.pdf",
+      "pages": 2,
+      "characters": 3089,
+      "authorsInOrder": true,
+      "rendered": true,
+      "numericalTokensUnchangedFromSource": true,
+      "sha256": "fed247ed1004e322e7be7d775f5ac2751f035e919352688ad22c3710ffe381c1"
+    },
+    {
+      "file": "docs/09_reproducibility/09_reproducibility_en.pdf",
+      "pages": 2,
+      "characters": 3061,
+      "authorsInOrder": true,
+      "rendered": true,
+      "numericalTokensUnchangedFromSource": true,
+      "sha256": "c939b5a87bc672dc2247817646cb0e0abd7723873643fc0b383e50ea5cebe8d4"
+    }
+  ],
+  "benchmarkFormattedValuesMatched": [
+    "0.0237",
+    "0.0348",
+    "0.0596",
+    "0.0124",
+    "0.0251",
+    "0.0515",
+    "0.0063",
+    "0.0214",
+    "0.0439",
+    "0.0244",
+    "0.0384",
+    "0.0592",
+    "0.0211",
+    "0.0293",
+    "0.0527",
+    "17.3713",
+    "27.1229",
+    "17.4328",
+    "0.0691",
+    "0.1153",
+    "0.1039",
+    "0.0463",
+    "0.0716",
+    "0.0796",
+    "1.8608",
+    "2.9150",
+    "1.9012"
+  ]
+}

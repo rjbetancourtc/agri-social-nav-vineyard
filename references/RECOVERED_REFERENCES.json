@@ -1,0 +1,56 @@
+{
+  "sourceRepository": "https://github.com/rjbetancourtc/agri-social-nav-vineyard",
+  "sourceCommit": "94e8897d35dc8b633e937958934a5487b562f6f8",
+  "preservation": "Exact Git blob bytes; original publication authorship unchanged",
+  "files": [
+    {
+      "path": "Vasconez.pdf",
+      "gitBlobSHA": "97ca382a250e530086db8d8ef96d9bcbfc101244",
+      "sha256": "ffdd65391c469b531c32cd2b11434cb155524a3d61d084fa159b55f3713a2b8f",
+      "bytes": 1737560,
+      "sourceCommit": "94e8897d35dc8b633e937958934a5487b562f6f8"
+    },
+    {
+      "path": "referencias/1907.05300v1.pdf",
+      "gitBlobSHA": "623a47790515929ec17d562822e7592f416533f3",
+      "sha256": "1d51229b8767b375629c2c53fcf5a451d25905b276d00f81a8a60940a836e773",
+      "bytes": 3824284,
+      "sourceCommit": "94e8897d35dc8b633e937958934a5487b562f6f8"
+    },
+    {
+      "path": "referencias/agronomy-09-00403.pdf",
+      "gitBlobSHA": "ce303d1661b3d05925113c8201ff017d2e1d112d",
+      "sha256": "76d740ce06b3e02be4c778831fa7efbbdb3f36927f42853632d97616fb8471da",
+      "bytes": 16648783,
+      "sourceCommit": "94e8897d35dc8b633e937958934a5487b562f6f8"
+    },
+    {
+      "path": "referencias/j.robot.2016.11.007.pdf",
+      "gitBlobSHA": "35e6d460e6654df1d7887e918d899d1a66649cef",
+      "sha256": "d722abeaf9b679144d7e07d9038899e6c68539d5187356783a4ac2c53a98c9bd",
+      "bytes": 1214762,
+      "sourceCommit": "94e8897d35dc8b633e937958934a5487b562f6f8"
+    },
+    {
+      "path": "referencias/physreve.51.4282.pdf",
+      "gitBlobSHA": "2a9eec7fde5f7423d612b8667fac67798d7cc42c",
+      "sha256": "cb8416711b3b22c9ec4576a4f120e75fd91fb031792878ba84df7a16475d4140",
+      "bytes": 307566,
+      "sourceCommit": "94e8897d35dc8b633e937958934a5487b562f6f8"
+    },
+    {
+      "path": "referencias/s12369-014-0251-1.pdf",
+      "gitBlobSHA": "089b3a773534a9d7fb53c7f9267702ad8e0b0c48",
+      "sha256": "0c01eb5839fd3cfb8646154393eeab9f66fd66fbf503a49ea822a97ed6e4af28",
+      "bytes": 2342604,
+      "sourceCommit": "94e8897d35dc8b633e937958934a5487b562f6f8"
+    },
+    {
+      "path": "referencias/sensors-24-02794-v2.pdf",
+      "gitBlobSHA": "9a2207f49f0c8638786fc9b150800ba3d7d197f6",
+      "sha256": "e05532f0822c5e077ce202b326f1ed78f77875bd4df335917d1b6865b6a9afe5",
+      "bytes": 4484688,
+      "sourceCommit": "94e8897d35dc8b633e937958934a5487b562f6f8"
+    }
+  ]
+}

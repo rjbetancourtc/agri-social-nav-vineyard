@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "localBrokenLinks": [],
+  "secretPatternFindings": [],
+  "excludedFileFindings": [],
+  "pdfReports": 18,
+  "sourceDeliveryModified": false,
+  "githubModified": false,
+  "maxFileBytes": 1313679,
+  "references": "Original bibliography included; original third-party PDFs unavailable in source.",
+  "scope": "Per-run metrics to tables/statistics/TOPSIS/dominance. No raw metric reconstruction or standalone Unity simulation."
+}

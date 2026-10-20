@@ -1,0 +1,9 @@
+{
+  "endpoint": "DurationCompleted_s",
+  "n": 266,
+  "cells": 28,
+  "expectedCells": 36,
+  "formula": "value ~ C(Method,Sum)*C(Scenario,Sum)",
+  "warnings": [],
+  "status": "NOT_ESTIMABLE_FULL_FACTORIAL_MISSING_CELLS"
+}

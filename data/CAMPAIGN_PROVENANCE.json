@@ -1,0 +1,512 @@
+{
+  "campaign": "EVAL_20261019_112257",
+  "planned": 360,
+  "success": 266,
+  "timeout": 94,
+  "benchmark": 180,
+  "pairingVerified": false,
+  "period_s": 0.1,
+  "timeScale": 1,
+  "evaluationSeedRule": "31000+100*scenario+repetition",
+  "orderSeed": 20261014,
+  "sourceFreezeSHA256": "104a6ca991e33019cd403aa019621f0cb8071d9f05906364d99e547efd499616",
+  "originalStrictValidation": {
+    "all360AccountedAndVerified": false,
+    "all360CommittedAndVerified": false,
+    "pending": 0,
+    "technicalPartials": 0
+  },
+  "originalQualityFlags": 115,
+  "adjudication": {
+    "updated": "2026-10-20T01:59:19.771808-03:00",
+    "accountingAndEndpointAdjudicationPassed": true,
+    "originalStrictValidationPassed": false,
+    "originalQualityFlagsRetained": [
+      {
+        "identity": "EVAL_20261019_112257_M8_E1_R4_S31104_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M5_E3_R6_S31306_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M6_E3_R2_S31302_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M7_E3_R1_S31301_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M7_E2_R3_S31203_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M6_E1_R10_S31110_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M6_E2_R3_S31203_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M1_E4_R2_S31402_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M7_E3_R2_S31302_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M4_E3_R9_S31309_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M6_E4_R2_S31402_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M4_E3_R1_S31301_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M0_E2_R6_S31206_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M6_E2_R10_S31210_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M7_E3_R5_S31305_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M8_E4_R9_S31409_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M7_E2_R10_S31210_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M8_E4_R6_S31406_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M4_E2_R7_S31207_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M2_E1_R4_S31104_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M8_E2_R6_S31206_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M2_E4_R6_S31406_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M8_E1_R7_S31107_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M8_E4_R3_S31403_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M4_E3_R5_S31305_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M3_E1_R9_S31109_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M6_E3_R9_S31309_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M7_E1_R2_S31102_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M7_E1_R10_S31110_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M3_E1_R3_S31103_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M0_E3_R7_S31307_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M4_E4_R4_S31404_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M7_E3_R8_S31308_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M5_E4_R1_S31401_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M5_E2_R10_S31210_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M8_E3_R9_S31309_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M3_E4_R10_S31410_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M1_E3_R4_S31304_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M3_E4_R6_S31406_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M5_E2_R1_S31201_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M4_E1_R5_S31105_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M2_E1_R8_S31108_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M8_E3_R8_S31308_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M8_E3_R3_S31303_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M7_E1_R4_S31104_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M4_E1_R9_S31109_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M7_E4_R10_S31410_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M1_E3_R7_S31307_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M3_E3_R1_S31301_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M0_E3_R3_S31303_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M0_E4_R5_S31405_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M5_E4_R6_S31406_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M4_E1_R7_S31107_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M1_E4_R9_S31409_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M5_E1_R8_S31108_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M3_E4_R4_S31404_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M2_E1_R1_S31101_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M4_E3_R8_S31308_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M2_E1_R7_S31107_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M7_E3_R9_S31309_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M3_E3_R7_S31307_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M2_E4_R3_S31403_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M0_E4_R2_S31402_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M3_E3_R3_S31303_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M2_E3_R4_S31304_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M1_E1_R3_S31103_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M3_E4_R5_S31405_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M8_E2_R4_S31204_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M4_E2_R6_S31206_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M8_E3_R1_S31301_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M4_E4_R5_S31405_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M3_E3_R8_S31308_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M1_E3_R6_S31306_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M8_E3_R4_S31304_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M2_E3_R6_S31306_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M1_E1_R1_S31101_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M4_E2_R8_S31208_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M2_E4_R10_S31410_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M6_E4_R6_S31406_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M3_E2_R3_S31203_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M5_E2_R6_S31206_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M3_E4_R3_S31403_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M4_E4_R7_S31407_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M4_E2_R9_S31209_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M3_E4_R8_S31408_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M4_E1_R8_S31108_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M5_E1_R9_S31109_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M1_E1_R8_S31108_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M6_E2_R9_S31209_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M1_E3_R3_S31303_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M6_E4_R3_S31403_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M0_E3_R6_S31306_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M4_E4_R10_S31410_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M4_E2_R3_S31203_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M8_E1_R9_S31109_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M1_E1_R4_S31104_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M0_E4_R8_S31408_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M6_E4_R5_S31405_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M0_E2_R4_S31204_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M2_E2_R9_S31209_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M7_E1_R1_S31101_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M5_E2_R8_S31208_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M4_E4_R1_S31401_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M1_E3_R1_S31301_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M7_E4_R4_S31404_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M1_E4_R1_S31401_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M2_E1_R3_S31103_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M2_E2_R1_S31201_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M0_E4_R10_S31410_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M0_E2_R3_S31203_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M1_E2_R4_S31204_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M4_E4_R8_S31408_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M7_E2_R5_S31205_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M3_E3_R10_S31310_A1",
+        "reason": "metrics/clock/identity/gaps"
+      },
+      {
+        "identity": "EVAL_20261019_112257_M7_E1_R6_S31106_A1",
+        "reason": "metrics/clock/identity/gaps"
+      }
+    ],
+    "freezeSHA256": "104a6ca991e33019cd403aa019621f0cb8071d9f05906364d99e547efd499616",
+    "validationSHA256": "a13fada5e9e806e41439d5a38b8c598a384fc064dc7eabb7c5f80a87eaed7eb0",
+    "sourceQCResultSHA256": "34c93f561e38407bc64e06a952c5d22a1821f5d474653f70d1c69a8032ee3523",
+    "operationalAmendmentSHA256": "6c87231ad1c07490d11d5354218942a62a269eec0c1016df60f77899d7d321b9",
+    "posthoc": true,
+    "decision": "Only endpoints supported by exact source coverage/matching and geometric zero-interval adjudication are available. Receiver flags and original v3.0 clock flags remain. No experiment repeated, no missing UDP event invented.",
+    "runsWithRetainedClockFlag": 1,
+    "zeroDurationPoseIntervals": 1,
+    "missionRequests": 360,
+    "duplicateIdentities": false
+  },
+  "sourceQualitySummary": {
+    "allReceivedMetricInputsMatched": true,
+    "allSourceSequenceCoverageComplete": true,
+    "commits": 360,
+    "experimentalImpact": "Source-derived geometric endpoint extension 3.1 retains zero-duration identical poses and original clock flags. Undefined derivatives/stop summaries remain unavailable. Distinguish from receiver-only frozen metrics. No mission repeated; no packet or terminal event fabricated.",
+    "originalReceiverFlagsPreserved": true,
+    "posthocAdjudication": true,
+    "runsSourceRecovered": 114,
+    "runsWithRetainedClockFlag": 1,
+    "sourceNotUDPTelemetry": true,
+    "sourceRecords": 459986,
+    "updated": "2026-10-20T01:59:15.064188-03:00",
+    "zeroDurationPoseIntervals": 1
+  },
+  "scope": "Analysis from adjudicated per-run metrics; no raw telemetry reconstruction and no complete Unity simulation."
+}

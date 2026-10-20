@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "planned": 360,
+  "success": 266,
+  "timeout": 94,
+  "contrasts": 128,
+  "benchmark": 180,
+  "independentTestsVerified": true,
+  "continuousIntervalsAndEffectsVerified": true,
+  "HolmVerified": true,
+  "decisionMatricesVerified": 5,
+  "dominanceVerified": 5,
+  "equalTOPSISVerified": 5,
+  "notRerun": "This checker is deterministic; the separate reproduce.py also regenerated model fitting and resampling. No Unity simulation or raw-metric reconstruction."
+}

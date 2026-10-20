@@ -1,378 +1,99 @@
-<!-- ============================================================
-     REPOSITORY IDENTIFICATION — GitHub README compatible
-     Repository: agri-social-nav-vineyard
-     ============================================================ -->
-
+<!-- Agri-Social-Nav-Vineyard: identified scientific release, 20 October 2026 -->
 <div align="center">
-
-  <p>
-    <strong>RESEARCH PROJECT</strong><br>
-    Agricultural Robotics · Human–Robot Interaction · Social Navigation
-  </p>
-
-  <h1>🌿 Agri-Social Navigation in Vineyard Corridors</h1>
-
-  <h3>
-    Anisotropic Proxemic Fields for Socially Aware Agricultural Robot Navigation
-  </h3>
-
-  <p>
-    A <strong>Unity–MATLAB</strong> research framework for simulating,
-    instrumenting, and evaluating socially aware navigation strategies
-    for agricultural mobile robots operating in vineyard corridors
-    shared with human workers.
-  </p>
-
-  <p>
-    <strong>Authors:</strong><br>
-    Reinaldo Betancourt · Ingrid Nicole Vásconez · Viviana Moya ·
-    William Chamorro · Sandra Cano · Marco Antonio Molina ·
-    Juan Pablo Vásconez
-  </p>
-
-  <p>
-    <img alt="Repository"
-         src="https://img.shields.io/badge/GitHub-agri--social--nav--vineyard-181717?logo=github">
-    <img alt="Unity"
-         src="https://img.shields.io/badge/Unity-Digital_Twin-000000?logo=unity">
-    <img alt="MATLAB"
-         src="https://img.shields.io/badge/MATLAB-Data_Analysis-E16737">
-    <img alt="Methods"
-         src="https://img.shields.io/badge/Navigation_Methods-9-2F855A">
-    <img alt="Navigation runs"
-         src="https://img.shields.io/badge/Valid_Navigation_Runs-360-2563EB">
-    <img alt="Scenarios"
-         src="https://img.shields.io/badge/HRI_Scenarios-4-7C3AED">
-    <img alt="Benchmark"
-         src="https://img.shields.io/badge/Computational_Benchmark-54_Runs-8B5CF6">
-    <img alt="Recorded telemetry"
-         src="https://img.shields.io/badge/Recorded_Telemetry-4.387_Hz-0F766E">
-  </p>
-
-  <p>
-    Purpose · Experimental identity · Methods · Architecture ·
-    Repository structure · Evaluation · Data
-  </p>
-
+<p><strong>RESEARCH PROJECT</strong><br>Agricultural Robotics · Human–Robot Interaction · Social Navigation</p>
+<h1>🌿 Agri-Social Navigation in Vineyard Corridors</h1>
+<h3>Anisotropic Proxemic Fields for Socially Aware Agricultural Robot Navigation</h3>
+<p>A <strong>Unity–Python</strong> simulation and numerical-evaluation framework for agricultural mobile robots sharing vineyard corridors with workers. Current campaign: EVAL_20261019_112257; minimum scientific repository.</p>
+<p><strong>Authors / Autores:</strong><br>Reinaldo Betancourt · Ingrid Nicole Vásconez · Viviana Moya · William Chamorro · Sandra Cano · Marco Antonio Molina · Juan Pablo Vásconez</p>
+<p>
+<img alt="Repository" src="https://img.shields.io/badge/GitHub-agri--social--nav--vineyard-181717?logo=github">
+<img alt="Unity" src="https://img.shields.io/badge/Unity-Simulation-000000?logo=unity">
+<img alt="Python" src="https://img.shields.io/badge/Python-Numerical_Analysis-3776AB?logo=python">
+<img alt="Methods" src="https://img.shields.io/badge/Navigation_Methods-9-2F855A">
+<img alt="Attempts" src="https://img.shields.io/badge/Mission_Attempts-360-2563EB">
+<img alt="Success" src="https://img.shields.io/badge/SUCCESS-266-2F855A">
+<img alt="Timeout" src="https://img.shields.io/badge/TIMEOUT-94-BC5C22">
+<img alt="Benchmark" src="https://img.shields.io/badge/Benchmark-180_Attempts-8B5CF6">
+<img alt="Reports" src="https://img.shields.io/badge/PDF_Reports-English_%7C_Espa%C3%B1ol-17365D">
+</p>
+<p><a href="#technical-reports">PDF reports / Informes PDF</a> · <a href="#data-and-reproducibility">Data and reproducibility</a> · <a href="#authors">Authors</a></p>
 </div>
-
 <hr>
 
-<h2 id="repository-purpose">Repository Purpose</h2>
+<h2 id="repository-purpose">Repository Purpose / Propósito</h2>
+<p>This repository supports the manuscript <em>Anisotropic Proxemic Fields vs. Social Navigation Baselines for Agricultural Robot Navigation in Vineyard Corridors: A Statistical Comparison with Effect Sizes</em>. It studies mission completion, observed human separation, efficiency and controller computation in simulation. Physical-robot safety and agricultural deployment require separate validation.</p>
+<p>Los informes de lectura se presentan en <strong>PDF, en español e inglés</strong>, con los siete autores. Los datos y scripts permanecen disponibles para reproducción numérica. Esta entrega distingue la evaluación corregida de las campañas históricas; los resultados no se mezclan.</p>
 
-<p>
-  This repository brings together Unity navigation scripts, telemetry tools,
-  experimental data, research documentation, and MATLAB code associated with
-  the evaluation of socially aware agricultural robot navigation in simulated
-  vineyard environments.
-</p>
-
-<p>
-  The engineering objective is to examine human–robot separation,
-  collision avoidance, trajectory efficiency, kinematic behavior,
-  and mission completion under the evaluated simulation conditions.
-  Physical-robot validation remains a separate research step.
-</p>
+<h2 id="technical-reports">Technical Reports / Informes técnicos</h2>
+<p>Each report includes all study authors on its cover and in PDF metadata. Numerical results refer to <code>EVAL_20261019_112257</code>, with literature distinguished explicitly. CSV/JSON files are machine-readable inputs, not the reading reports.</p>
+<table><thead><tr><th>No.</th><th>Topic / Tema</th><th>English</th><th>Español</th></tr></thead><tbody>
+<tr><td>01</td><td>Descriptive Statistics of the Evaluated Campaign<br><small>Estadística descriptiva de la campaña evaluada</small></td><td><a href="./docs/01_descriptive_statistics/01_descriptive_statistics_en.pdf">English PDF</a></td><td><a href="./docs/01_descriptive_statistics/01_estadistica_descriptiva_es.pdf">PDF español</a></td></tr>
+<tr><td>02</td><td>Method, Scenario and Interaction Analysis<br><small>Análisis de método, escenario e interacción</small></td><td><a href="./docs/02_omnibus_tests/02_omnibus_tests_en.pdf">English PDF</a></td><td><a href="./docs/02_omnibus_tests/02_pruebas_omnibus_es.pdf">PDF español</a></td></tr>
+<tr><td>03</td><td>Scenario-Specific Comparisons and Effect Sizes<br><small>Comparaciones por escenario y tamaños de efecto</small></td><td><a href="./docs/03_pairwise_comparisons/03_pairwise_comparisons_en.pdf">English PDF</a></td><td><a href="./docs/03_pairwise_comparisons/03_comparaciones_entre_metodos_es.pdf">PDF español</a></td></tr>
+<tr><td>04</td><td>Mission Outcomes and Human-Proximity Events<br><small>Resultados de misión y eventos de proximidad humana</small></td><td><a href="./docs/04_success_rate_tests/04_success_rates_en.pdf">English PDF</a></td><td><a href="./docs/04_success_rate_tests/04_tasas_exito_es.pdf">PDF español</a></td></tr>
+<tr><td>05</td><td>TOPSIS and Full-Space Pareto Analysis<br><small>TOPSIS y análisis de Pareto en el espacio completo</small></td><td><a href="./docs/05_topsis_multicriteria/05_topsis_en.pdf">English PDF</a></td><td><a href="./docs/05_topsis_multicriteria/05_topsis_es.pdf">PDF español</a></td></tr>
+<tr><td>06</td><td>Weight Sensitivity and Sampling Uncertainty<br><small>Sensibilidad de pesos e incertidumbre muestral</small></td><td><a href="./docs/06_monte_carlo_sensitivity/06_monte_carlo_en.pdf">English PDF</a></td><td><a href="./docs/06_monte_carlo_sensitivity/06_monte_carlo_es.pdf">PDF español</a></td></tr>
+<tr><td>07</td><td>State of the Art and Technical References<br><small>Estado del arte y referencias técnicas</small></td><td><a href="./docs/07_State_of_the_Art_and_References/07_state_of_the_art_and_technical_references_en.pdf">English PDF</a></td><td><a href="./docs/07_State_of_the_Art_and_References/07_estado_del_arte_y_referencias_es.pdf">PDF español</a></td></tr>
+<tr><td>08</td><td>Controller Specification, Measurements and Benchmark<br><small>Controladores, mediciones y rendimiento computacional</small></td><td><a href="./docs/08_revised_manuscript_2026/08_measurements_and_benchmark_en.pdf">English PDF</a></td><td><a href="./docs/08_revised_manuscript_2026/08_mediciones_y_benchmark_es.pdf">PDF español</a></td></tr>
+<tr><td>09</td><td>Data Provenance and Numerical Reproducibility<br><small>Procedencia de datos y reproducibilidad numérica</small></td><td><a href="./docs/09_reproducibility/09_reproducibility_en.pdf">English PDF</a></td><td><a href="./docs/09_reproducibility/09_reproducibilidad_es.pdf">PDF español</a></td></tr>
+</tbody></table>
 
 <h2 id="experimental-identity">Experimental Identity</h2>
-
-<table>
-  <tr>
-    <th align="left">Identifier</th>
-    <th align="left">Description</th>
-  </tr>
-  <tr>
-    <td><strong>Repository</strong></td>
-    <td><code>agri-social-nav-vineyard</code></td>
-  </tr>
-  <tr>
-    <td><strong>Research domain</strong></td>
-    <td>Agricultural robotics, social navigation, HRI, and digital twins</td>
-  </tr>
-  <tr>
-    <td><strong>Simulation platform</strong></td>
-    <td>Unity with NavMesh global path planning</td>
-  </tr>
-  <tr>
-    <td><strong>Analysis platform</strong></td>
-    <td>MATLAB for telemetry processing, visualization, and evaluation</td>
-  </tr>
-  <tr>
-    <td><strong>Mission</strong></td>
-    <td>Common <code>A → B → A</code> navigation task</td>
-  </tr>
-  <tr>
-    <td><strong>Navigation campaign</strong></td>
-    <td>9 methods × 4 scenarios × 10 repetitions = 360 runs</td>
-  </tr>
-  <tr>
-    <td><strong>Run accounting reported in the manuscript</strong></td>
-    <td>360 planned, 360 executed, 360 valid, 0 excluded, 360 successful, 0 failed</td>
-  </tr>
-  <tr>
-    <td><strong>Separate computational benchmark</strong></td>
-    <td>9 methods × 2 scenarios × 3 repetitions = 54 runs</td>
-  </tr>
-  <tr>
-    <td><strong>Telemetry timing</strong></td>
-    <td>Nominal transmission interval of 0.10 s; approximately 4.387 Hz average recorded frequency</td>
-  </tr>
-  <tr>
-    <td><strong>M4 controller</strong></td>
-    <td>Longitudinal–lateral anisotropic proxemic navigation with front–rear symmetry and continuous velocity regulation</td>
-  </tr>
+<table><tr><th align="left">Item</th><th align="left">Evaluated specification</th></tr>
+<tr><td>Campaign</td><td><code>EVAL_20261019_112257</code></td></tr>
+<tr><td>Design</td><td>9 methods × 4 scenarios × 10 attempts = 360 planned and executed attempts</td></tr>
+<tr><td>Outcomes retained</td><td><strong>266 SUCCESS + 94 TIMEOUT = 360</strong>; TIMEOUT is an observed mission failure, not a pending run.</td></tr>
+<tr><td>Mission</td><td>A → B → A; waypoint arrival radius 2.0 m; wall-clock timeout 180 s</td></tr>
+<tr><td>Control period</td><td>0.10 s (10 Hz); rendering and pose sampling are separate</td></tr>
+<tr><td>Separate computational benchmark</td><td>9 methods × E1/E4 × 10 repetitions = <strong>180 assignments</strong></td></tr>
+<tr><td>M4 field</td><td>Nearest eligible detected human; longitudinal–lateral anisotropy with front–rear symmetry; zone-based target speeds</td></tr>
+<tr><td>Inference</td><td>Independent working assumption; scenario-specific contrasts. Matched trajectories / pairing are not verified.</td></tr>
 </table>
 
 <h2 id="navigation-methods">Navigation Methods</h2>
-
-<table>
-  <tr>
-    <th align="left">Group</th>
-    <th align="left">ID</th>
-    <th align="left">Navigation strategy</th>
-  </tr>
-  <tr>
-    <td rowspan="5"><strong>In-house methods</strong></td>
-    <td><strong>M0</strong></td>
-    <td>NavMesh only</td>
-  </tr>
-  <tr>
-    <td><strong>M1</strong></td>
-    <td>Distance-threshold stop supervisor</td>
-  </tr>
-  <tr>
-    <td><strong>M2</strong></td>
-    <td>Hysteresis-based supervisor</td>
-  </tr>
-  <tr>
-    <td><strong>M3</strong></td>
-    <td>Continuous isotropic proxemic-field navigation</td>
-  </tr>
-  <tr>
-    <td><strong>M4</strong></td>
-    <td>Longitudinal–lateral anisotropic proxemic navigation with velocity modulation</td>
-  </tr>
-  <tr>
-    <td rowspan="4"><strong>Comparison baselines</strong></td>
-    <td><strong>B1</strong></td>
-    <td>Social Dynamic Window Approach</td>
-  </tr>
-  <tr>
-    <td><strong>B2</strong></td>
-    <td>ORCA / RVO reciprocal collision avoidance</td>
-  </tr>
-  <tr>
-    <td><strong>B3</strong></td>
-    <td>Social Force Model</td>
-  </tr>
-  <tr>
-    <td><strong>B4</strong></td>
-    <td>CBF-SocialDWA with a control-barrier-based safety layer</td>
-  </tr>
-</table>
-
-<p>
-  The cited literature motivates the algorithmic families. The numerical
-  settings reported in the manuscript describe the implementations evaluated
-  in this study; the cited publications do not prescribe every experimental
-  parameter value.
-</p>
-
-<h2 id="system-architecture">System Architecture</h2>
-
-<div align="center">
-  <p>
-    <code>
-      Vineyard simulation
-      → NavMesh planning
-      → Human-state information
-      → Local navigation
-      → Robot motion
-      → UDP telemetry
-      → MATLAB processing
-      → Statistical evaluation
-    </code>
-  </p>
-</div>
-
-<h3>Proxemic zones</h3>
-
-<table>
-  <tr>
-    <th>Zone</th>
-    <th>Robot–human distance</th>
-    <th>Operational interpretation</th>
-  </tr>
-  <tr>
-    <td><strong>Intimate</strong></td>
-    <td><code>d &lt; 0.45 m</code></td>
-    <td>Critical close-contact region</td>
-  </tr>
-  <tr>
-    <td><strong>Personal</strong></td>
-    <td><code>0.45 m ≤ d &lt; 1.20 m</code></td>
-    <td>Active avoidance and velocity regulation</td>
-  </tr>
-  <tr>
-    <td><strong>Social</strong></td>
-    <td><code>1.20 m ≤ d &lt; 3.60 m</code></td>
-    <td>Monitoring and anticipatory response</td>
-  </tr>
-  <tr>
-    <td><strong>Public</strong></td>
-    <td><code>d ≥ 3.60 m</code></td>
-    <td>Nominal navigation</td>
-  </tr>
+<table><tr><th>ID</th><th>Evaluated strategy</th></tr>
+<tr><td>M0</td><td>NavMesh only</td></tr><tr><td>M1</td><td>Distance-threshold stop supervisor</td></tr><tr><td>M2</td><td>Hysteresis stop supervisor</td></tr><tr><td>M3</td><td>Nearest-human isotropic proxemics with zone-based speed</td></tr><tr><td>M4</td><td>Nearest-human longitudinal–lateral anisotropic proxemics with zone-based speed</td></tr><tr><td>B1</td><td>Social Dynamic Window Approach, including an anisotropic social-cost term</td></tr><tr><td>B2</td><td>ORCA/RVO-inspired relative-velocity correction; not the reference half-plane linear program</td></tr><tr><td>B3</td><td>Social Force implementation</td></tr><tr><td>B4</td><td>Barrier-inspired sampled Social DWA; no formal continuous-time CBF safety guarantee</td></tr>
 </table>
 
 <h2 id="hri-scenarios">Human–Robot Interaction Scenarios</h2>
-
-<table>
-  <tr>
-    <th align="left">Scenario</th>
-    <th align="left">Description</th>
-  </tr>
-  <tr>
-    <td><strong>E1 — Frontal encounter</strong></td>
-    <td>Direct robot–worker interaction inside a narrow corridor</td>
-  </tr>
-  <tr>
-    <td><strong>E2 — Lateral intrusion</strong></td>
-    <td>A human enters or crosses the robot trajectory laterally</td>
-  </tr>
-  <tr>
-    <td><strong>E3 — Social following</strong></td>
-    <td>The robot navigates relative to a moving human agent</td>
-  </tr>
-  <tr>
-    <td><strong>E4 — Multi-agent congestion</strong></td>
-    <td>Several workers constrain the available corridor space</td>
-  </tr>
-</table>
-
-<h2 id="repository-structure">Repository Structure</h2>
-
-<table>
-  <tr>
-    <th align="left">Path</th>
-    <th align="left">Contents</th>
-  </tr>
-  <tr>
-    <td><code>docs/</code></td>
-    <td>Technical documentation and supporting material</td>
-  </tr>
-  <tr>
-    <td><code>unity/scripts/</code></td>
-    <td>Unity C# navigation and UDP instrumentation scripts</td>
-  </tr>
-  <tr>
-    <td><code>matlab/scripts/</code></td>
-    <td>Automated dashboard for telemetry acquisition and run-level metrics</td>
-  </tr>
-  <tr>
-    <td><code>results/Data2/Results/</code></td>
-    <td>360-run navigation dataset: telemetry CSV, metrics CSV, and MAT files</td>
-  </tr>
-  <tr>
-    <td><code>results/Data2/ControllerBenchmark/</code></td>
-    <td>Separate 54-run computational benchmark and summary</td>
-  </tr>
-  <tr>
-    <td><code>referencias/</code></td>
-    <td>Scientific references and supporting publications</td>
-  </tr>
-</table>
-
-<p>
-  <strong>Data for the current study:</strong>
-  Use <code>results/Data2/Results/</code> for the 360-run navigation study.
-  The separate 54-run controller profiling data are under
-  <code>results/Data2/ControllerBenchmark/</code>.
-</p>
+<table><tr><th>Scenario</th><th>Interaction</th><th>Humans</th></tr><tr><td>E1</td><td>Frontal encounter</td><td>2</td></tr><tr><td>E2</td><td>Lateral intrusion</td><td>2</td></tr><tr><td>E3</td><td>Following / longitudinal interaction</td><td>3</td></tr><tr><td>E4</td><td>Multi-human congestion</td><td>9, including four without patrol</td></tr></table>
+<p>Operational human-centre thresholds: intimate 0.45 m, personal 1.20 m, social 3.60 m. These thresholds define observed simulation exposure; they are not certified surface clearances or validated worker-comfort limits.</p>
 
 <h2 id="evaluation-pipeline">Evaluation Pipeline</h2>
-
-<p>
-  The manuscript reports a common run-level telemetry and metrics pipeline
-  for all nine methods. The principal statistical analysis evaluates
-  <strong>Method</strong>, <strong>Scenario</strong>, and their interaction
-  while retaining the paired experimental structure.
-</p>
-
-<table>
-  <tr>
-    <th align="left">Analysis component</th>
-    <th align="left">Reported approach</th>
-  </tr>
-  <tr>
-    <td><strong>Factorial inference</strong></td>
-    <td>Repeated-measures Method × Scenario analysis with Greenhouse–Geisser correction where applicable</td>
-  </tr>
-  <tr>
-    <td><strong>Sensitivity analysis</strong></td>
-    <td>Linear mixed-effects analysis accounting for the paired run/seed structure</td>
-  </tr>
-  <tr>
-    <td><strong>Scenario-specific contrasts</strong></td>
-    <td>Paired differences, 95% confidence intervals, Cohen's d<sub>z</sub>, and Holm adjustment</td>
-  </tr>
-  <tr>
-    <td><strong>Multicriteria comparison</strong></td>
-    <td>Five-criterion TOPSIS with equal-weight reference and alternative weight profiles</td>
-  </tr>
-  <tr>
-    <td><strong>Safety-distance criterion</strong></td>
-    <td>Saturating utility for robot–human separation</td>
-  </tr>
-  <tr>
-    <td><strong>Pareto analysis</strong></td>
-    <td>Full five-criterion vectors and a 9 × 9 dominance matrix</td>
-  </tr>
-  <tr>
-    <td><strong>Computational profiling</strong></td>
-    <td>Separate 54-run benchmark of latency, effective invocation frequency, and CPU measurements</td>
-  </tr>
+<p><code>Unity simulation → UDP telemetry → Python receiver → adjudicated run endpoints → scenario-specific inference → three-criterion TOPSIS → full-space dominance</code></p>
+<table><tr><th>Component</th><th>Current scope</th></tr>
+<tr><td>Method × Scenario</td><td>Sum-coded independent HC3 model for exposure, with rank and residual diagnostics. Full completed-duration factorial unavailable because only 28 of 36 cells contain completers; singular binary-model omnibus terms are not confirmatory.</td></tr>
+<tr><td>128 contrasts</td><td>M4 versus eight comparators, four scenarios, four endpoints; Welch estimates / Hedges g for continuous endpoints; Fisher tests / risk differences for binary endpoints; two Holm families of 64.</td></tr>
+<tr><td>TOPSIS</td><td>Three run-level criteria: failure-aware mission utility, saturated clearance utility and personal-exposure fraction. Acceleration, jerk and stop counts are excluded.</td></tr>
+<tr><td>Pareto</td><td>Complete three-criterion mean vectors and 9 × 9 dominance matrices. A two-dimensional plot alone does not establish full-space non-dominance.</td></tr>
+<tr><td>Preference uncertainty</td><td>Four weight profiles; recorded 500 weight draws and 1000 within-cell bootstrap samples per scenario / pooled set; criterion-removal and scenario-preference sensitivity.</td></tr>
 </table>
+<p>The pooled equal-weight TOPSIS order begins <strong>B3, B4, M4</strong>. The pooled mean-vector Pareto set is <strong>M0, B3, B4</strong>. Rankings express stated preferences under the evaluated conditions; M4 is not claimed to be universally optimal or faster.</p>
 
-<p>
-  Numerical maximum acceleration and the constant success outcome are
-  not criteria in the primary TOPSIS analysis. The two-dimensional Pareto
-  projection serves as a visualization of the full-criterion analysis.
-</p>
+<h2 id="data-and-reproducibility">Data and Reproducibility / Datos y reproducibilidad</h2>
+<p><strong>Minimum scientific repository:</strong> current campaign EVAL_20261019_112257; 360 attempts (266 SUCCESS, 94 TIMEOUT), with a separate computational benchmark of 180 assignments. TIMEOUT is a terminal experimental outcome. Seed pairing was not verified: inference and resampling are independent.</p>
+<table><tr><th>Path</th><th>Contents</th></tr>
+<tr><td><a href="data/RUN_ENDPOINTS.csv">Per-run metrics</a></td><td>360 records with adjudicated endpoints, outcomes and quality indicators</td></tr>
+<tr><td><a href="data/QUALITY_PER_RUN.csv">Per-run quality</a></td><td>All 360 identities, original 115 strict-quality alerts and sender adjudication</td></tr>
+<tr><td><a href="data/benchmark/BENCHMARK_PER_ATTEMPT.csv">Benchmark</a></td><td>180 timing summaries; no raw cycle traces</td></tr>
+<tr><td><a href="results/expected/">Reference results</a></td><td>Numerical tables and summaries underlying the 18 reports</td></tr>
+<tr><td><a href="config/">Configurations</a></td><td>Analysis specification, run plan, evaluated controller parameters and human initial conditions</td></tr>
+<tr><td><a href="code/controllers/VERSION.json">Controller source versions</a></td><td>Frozen source hashes; no complete Unity project</td></tr>
+<tr><td><a href="data/DICTIONARY.md">Data dictionary</a></td><td>Units, variables, identifiers and formats</td></tr>
+<tr><td><a href="data/CAMPAIGN_PROVENANCE.json">Campaign provenance</a></td><td>Freeze identity and preserved quality limitations</td></tr>
+<tr><td><a href="references/BIBLIOGRAPHY.json">Bibliography</a></td><td>Original cited publications and authors</td></tr></table>
 
-<details>
-  <summary><strong>M4 implementation and experimental scope</strong></summary>
+~~~sh
+python -m pip install -r reproducibility/requirements.txt
+python -B reproducibility/reproduce.py --out reproduced
+python -B reproducibility/verify.py --results reproduced
+python -B reproducibility/check_tables.py --root . --out checked_tables
+python -B reproducibility/verify_manifest.py
+~~~
 
-  <p>
-    The evaluated M4 strategy applies a longitudinal–lateral anisotropic
-    proxemic field with front–rear symmetry, referenced to the nearest
-    detected human, together with continuous velocity regulation.
-  </p>
-
-  <p>
-    The results characterize the evaluated Unity scenarios. Physical
-    deployment, worst-case real-time behavior, and safety with real
-    workers require separate validation.
-  </p>
-</details>
-
-<h2 id="data-availability">Data Availability</h2>
-
-<p>
-  The navigation dataset is available under
-  <a href="./results/Data2/Results/"><code>results/Data2/Results/</code></a>.
-  The separate computational benchmark is available under
-  <a href="./results/Data2/ControllerBenchmark/"><code>results/Data2/ControllerBenchmark/</code></a>.
-  The 54 benchmark runs are separate from the 360-run navigation sample.
-</p>
-
-<p>
-  The manuscript also refers to Supplementary Table S1 for the complete
-  scenario-specific statistical contrasts. Supply S1 with the manuscript
-  supplementary material; its citation in the manuscript does not establish
-  that its file is present in this repository.
-</p>
-
+<p>The analysis regenerates descriptive statistics, exact event intervals, 128 contrasts, Holm correction, factorial diagnostics, four TOPSIS profiles, dominance, criterion/scenario sensitivity, 500 weight vectors and 1000 within-cell bootstrap samples per ranking set. It compares the regenerated results with the numerical inputs used by the reports. For a guarded run that rejects file reads outside this package and installed Python dependencies: <code>python -B -I reproducibility/run_isolated.py</code>.</p>
+<p><strong>Exact scope:</strong> tables and statistical/decision analysis from supplied adjudicated per-run metrics. Raw trajectories and telemetry are excluded, so this package cannot independently recalculate all measured navigation metrics or cycle-time percentiles. The CPU-session summary is a supplied measurement, not a new measurement made by the analysis. Controller sources/configurations do not constitute a standalone executable Unity simulation. See <a href="reproducibility/CORPUS_AVAILABILITY.md">actual corpus availability</a> and <a href="reproducibility/VERIFICATION.md">executed verification</a>.</p>
+<p><a href="Vasconez.pdf">Vasconez.pdf</a> and <a href="referencias/">six original reference PDFs</a> were recovered unchanged from the preceding repository revision. Their original authorship is preserved. See the <a href="references/README.md">reference index</a> and <a href="references/RECOVERED_REFERENCES.json">recovery hashes</a>. Other cited publications remain identified in the bibliography. No public raw-corpus deposit is claimed.</p>
 <h2 id="authors">Authors</h2>
 
 <table>
@@ -415,3 +136,7 @@
 </p>
 
 <hr>
+
+
+
+

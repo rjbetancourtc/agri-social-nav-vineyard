@@ -1,0 +1,22 @@
+{
+  "endpoint": "Failure",
+  "n": 360,
+  "cells": 36,
+  "expectedCells": 36,
+  "formula": "value ~ C(Method,Sum)*C(Scenario,Sum)",
+  "warnings": [
+    "covariance of constraints does not have full rank. The number of constraints is 35, but rank is 4",
+    "covariance of constraints does not have full rank. The number of constraints is 8, but rank is 4",
+    "covariance of constraints does not have full rank. The number of constraints is 3, but rank is 1",
+    "covariance of constraints does not have full rank. The number of constraints is 24, but rank is 4"
+  ],
+  "model": "independent HC3 sum-coded saturated OLS; linear probability if binary",
+  "designRank": 36,
+  "covarianceRank": 4,
+  "parameterCount": 36,
+  "clusters": 40,
+  "shapiroResidual_p": 1.913184951202863e-32,
+  "breuschPagan_p": 1.1793381088445718e-33,
+  "brownForsythe_p": 5.197448344612398e-29,
+  "status": "ESTIMATED_WITH_DIAGNOSTICS"
+}
