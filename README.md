@@ -78,10 +78,6 @@
 <tr><td><a href="data/benchmark/BENCHMARK_PER_ATTEMPT.csv">Benchmark</a></td><td>180 timing summaries; no raw cycle traces</td></tr>
 <tr><td><a href="results/expected/">Reference results</a></td><td>Numerical tables and summaries underlying the 18 reports</td></tr>
 <tr><td><a href="config/">Configurations</a></td><td>Analysis specification, run plan, evaluated controller parameters and human initial conditions</td></tr>
-<tr><td><a href="code/controllers/VERSION.json">Controller source versions</a></td><td>Frozen source hashes; no complete Unity project</td></tr>
-<tr><td><a href="data/DICTIONARY.md">Data dictionary</a></td><td>Units, variables, identifiers and formats</td></tr>
-<tr><td><a href="data/CAMPAIGN_PROVENANCE.json">Campaign provenance</a></td><td>Freeze identity and preserved quality limitations</td></tr>
-<tr><td><a href="references/BIBLIOGRAPHY.json">Bibliography</a></td><td>Original cited publications and authors</td></tr></table>
 
 ~~~sh
 python -m pip install -r reproducibility/requirements.txt
