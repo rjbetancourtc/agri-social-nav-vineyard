@@ -35,7 +35,7 @@
 <tr><td>06</td><td>Weight Sensitivity and Sampling Uncertainty<br><small>Sensibilidad de pesos e incertidumbre muestral</small></td><td><a href="./docs/06_monte_carlo_sensitivity/06_monte_carlo_en.pdf">English PDF</a></td><td><a href="./docs/06_monte_carlo_sensitivity/06_monte_carlo_es.pdf">PDF español</a></td></tr>
 <tr><td>07</td><td>State of the Art and Technical References<br><small>Estado del arte y referencias técnicas</small></td><td><a href="./docs/07_State_of_the_Art_and_References/07_state_of_the_art_and_technical_references_en.pdf">English PDF</a></td><td><a href="./docs/07_State_of_the_Art_and_References/07_estado_del_arte_y_referencias_es.pdf">PDF español</a></td></tr>
 <tr><td>08</td><td>Controller Specification, Measurements and Benchmark<br><small>Controladores, mediciones y rendimiento computacional</small></td><td><a href="./docs/08_revised_manuscript_2026/08_measurements_and_benchmark_en.pdf">English PDF</a></td><td><a href="./docs/08_revised_manuscript_2026/08_mediciones_y_benchmark_es.pdf">PDF español</a></td></tr>
-<tr><td>09</td><td>Data Provenance and Numerical Reproducibility<br><small>Procedencia de datos y reproducibilidad numérica</small></td><td><a href="./docs/09_reproducibility/09_reproducibility_en.pdf">English PDF</a></td><td><a href="./docs/09_reproducibility/09_reproducibilidad_es.pdf">PDF español</a></td></tr>
+
 </tbody></table>
 
 <h2 id="experimental-identity">Experimental Identity</h2>
