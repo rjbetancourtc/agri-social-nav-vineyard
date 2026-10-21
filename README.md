@@ -70,23 +70,6 @@
 </table>
 <p>The pooled equal-weight TOPSIS order begins <strong>B3, B4, M4</strong>. The pooled mean-vector Pareto set is <strong>M0, B3, B4</strong>. Rankings express stated preferences under the evaluated conditions; M4 is not claimed to be universally optimal or faster.</p>
 
-<h2 id="data-and-reproducibility">Data and Reproducibility / Datos y reproducibilidad</h2>
-<p><strong>Minimum scientific repository:</strong> current campaign EVAL_20261019_112257; 360 attempts (266 SUCCESS, 94 TIMEOUT), with a separate computational benchmark of 180 assignments. TIMEOUT is a terminal experimental outcome. Seed pairing was not verified: inference and resampling are independent.</p>
-<table><tr><th>Path</th><th>Contents</th></tr>
-<tr><td><a href="data/RUN_ENDPOINTS.csv">Per-run metrics</a></td><td>360 records with adjudicated endpoints, outcomes and quality indicators</td></tr>
-<tr><td><a href="data/QUALITY_PER_RUN.csv">Per-run quality</a></td><td>All 360 identities, original 115 strict-quality alerts and sender adjudication</td></tr>
-<tr><td><a href="data/benchmark/BENCHMARK_PER_ATTEMPT.csv">Benchmark</a></td><td>180 timing summaries; no raw cycle traces</td></tr>
-<tr><td><a href="results/expected/">Reference results</a></td><td>Numerical tables and summaries underlying the 18 reports</td></tr>
-<tr><td><a href="config/">Configurations</a></td><td>Analysis specification, run plan, evaluated controller parameters and human initial conditions</td></tr>
-
-~~~sh
-python -m pip install -r reproducibility/requirements.txt
-python -B reproducibility/reproduce.py --out reproduced
-python -B reproducibility/verify.py --results reproduced
-python -B reproducibility/check_tables.py --root . --out checked_tables
-python -B reproducibility/verify_manifest.py
-~~~
-
 <p>The analysis regenerates descriptive statistics, exact event intervals, 128 contrasts, Holm correction, factorial diagnostics, four TOPSIS profiles, dominance, criterion/scenario sensitivity, 500 weight vectors and 1000 within-cell bootstrap samples per ranking set. It compares the regenerated results with the numerical inputs used by the reports. For a guarded run that rejects file reads outside this package and installed Python dependencies: <code>python -B -I reproducibility/run_isolated.py</code>.</p>
 <p><strong>Exact scope:</strong> tables and statistical/decision analysis from supplied adjudicated per-run metrics. Raw trajectories and telemetry are excluded, so this package cannot independently recalculate all measured navigation metrics or cycle-time percentiles. The CPU-session summary is a supplied measurement, not a new measurement made by the analysis. Controller sources/configurations do not constitute a standalone executable Unity simulation. See <a href="reproducibility/CORPUS_AVAILABILITY.md">actual corpus availability</a> and <a href="reproducibility/VERIFICATION.md">executed verification</a>.</p>
 <p><a href="Vasconez.pdf">Vasconez.pdf</a> and <a href="referencias/">six original reference PDFs</a> were recovered unchanged from the preceding repository revision. Their original authorship is preserved. See the <a href="references/README.md">reference index</a> and <a href="references/RECOVERED_REFERENCES.json">recovery hashes</a>. Other cited publications remain identified in the bibliography. No public raw-corpus deposit is claimed.</p>
