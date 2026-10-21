@@ -72,7 +72,7 @@
 
 <p>The analysis regenerates descriptive statistics, exact event intervals, 128 contrasts, Holm correction, factorial diagnostics, four TOPSIS profiles, dominance, criterion/scenario sensitivity, 500 weight vectors and 1000 within-cell bootstrap samples per ranking set. It compares the regenerated results with the numerical inputs used by the reports. </code>.</p>
 <p><strong>Exact scope:</strong> tables and statistical/decision analysis from supplied adjudicated per-run metrics. Raw trajectories and telemetry are excluded, so this package cannot independently recalculate all measured navigation metrics or cycle-time percentiles. </a>.</p>
-<p><a href="Vasconez.pdf">Vasconez.pdf</a> and <a href="referencias/">six original reference PDFs</a> were recovered unchanged from the preceding repository revision. Their original authorship is preserved. See the <a href="references/README.md">reference index</a> and <a href="references/RECOVERED_REFERENCES.json">recovery hashes</a>. Other cited publications remain identified in the bibliography. No public raw-corpus deposit is claimed.</p>
+<p><a href="Vasconez.pdf">Vasconez.pdf</a> and <a href="referencias/">six original reference PDFs</a> were recovered unchanged from the preceding repository revision. Their original authorship is preserved. Other cited publications remain identified in the bibliography. No public raw-corpus deposit is claimed.</p>
 <h2 id="authors">Authors</h2>
 
 <table>
