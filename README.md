@@ -16,7 +16,7 @@
 <img alt="Benchmark" src="https://img.shields.io/badge/Benchmark-180_Attempts-8B5CF6">
 <img alt="Reports" src="https://img.shields.io/badge/PDF_Reports-English_%7C_Espa%C3%B1ol-17365D">
 </p>
-<p><a href="#technical-reports">PDF reports / Informes PDF</a> · <a href="#data-and-reproducibility">Data and reproducibility</a> · <a href="#authors">Authors</a></p>
+<p><a href="#technical-reports">PDF reports / Informes PDF</a> · <a href="#authors">Authors</a></p>
 </div>
 <hr>
 
