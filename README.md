@@ -70,8 +70,8 @@
 </table>
 <p>The pooled equal-weight TOPSIS order begins <strong>B3, B4, M4</strong>. The pooled mean-vector Pareto set is <strong>M0, B3, B4</strong>. Rankings express stated preferences under the evaluated conditions; M4 is not claimed to be universally optimal or faster.</p>
 
-<p>The analysis regenerates descriptive statistics, exact event intervals, 128 contrasts, Holm correction, factorial diagnostics, four TOPSIS profiles, dominance, criterion/scenario sensitivity, 500 weight vectors and 1000 within-cell bootstrap samples per ranking set. It compares the regenerated results with the numerical inputs used by the reports.
-<p><strong>Exact scope:</strong> tables and statistical/decision analysis from supplied adjudicated per-run metrics. Raw trajectories and telemetry are excluded, so this package cannot independently recalculate all measured navigation metrics or cycle-time percentiles. 
+<p>The analysis regenerates descriptive statistics, exact event intervals, 128 contrasts, Holm correction, factorial diagnostics, four TOPSIS profiles, dominance, criterion/scenario sensitivity, 500 weight vectors and 1000 within-cell bootstrap samples per ranking set. It compares the regenerated results with the numerical inputs used by the reports.</p>
+<p><strong>Exact scope:</strong> tables and statistical/decision analysis from supplied adjudicated per-run metrics. Raw trajectories and telemetry are excluded, so this package cannot independently recalculate all measured navigation metrics or cycle-time percentiles. </p>
 <p><a href="Vasconez.pdf">Vasconez.pdf</a> and <a href="referencias/">six original reference PDFs</a> were recovered unchanged from the preceding repository revision. Their original authorship is preserved. Other cited publications remain identified in the bibliography. No public raw-corpus deposit is claimed.</p>
 <h2 id="authors">Authors</h2>
 
